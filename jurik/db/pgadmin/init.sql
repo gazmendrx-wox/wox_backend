@@ -12,6 +12,6 @@ CREATE TABLE public.users
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.users
+ALTER TABLE IF EXISTS paublic.users
     OWNER to root;
 /** end of users table init **/
