@@ -22,7 +22,7 @@ app.get('/', async (req, res) => {
 });
 
 
-  app.get('/user/:name', async (req,res) => {
+  app.get('/user/:edon', async (req,res) => {
 
     const { name } = req.params;
   
