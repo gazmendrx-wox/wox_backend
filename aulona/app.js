@@ -20,6 +20,10 @@ app.get("/", async (req, res) => {
   res.send("Hello to main route.");
 });
 
+app.get("/aulona", async (req, res) => {
+  res.send("Hello from Aulona.");
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
