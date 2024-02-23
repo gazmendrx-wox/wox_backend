@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 const pool = new Pool({
   user: 'root',
   host: 'postgres',
-  database: 'odCal',
+  database: 'woxDb',
   password: '1234',
   port: 5432,
 });
