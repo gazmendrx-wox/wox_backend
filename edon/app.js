@@ -22,7 +22,9 @@ app.get('/', async (req, res) => {
 });
 
 
-  app.get('/edon', async (req,res) => {
+  app.get('/user/:name', async (req,res) => {
+
+    const { name } = req.params;
   
     // Start a transaction
     const client = await pool.connect();
@@ -31,7 +33,7 @@ app.get('/', async (req, res) => {
   
       // Use a parameterized query to prevent SQL injection
       const result = await client.query(
-        "SELECT id, name, email, password, created_at, modified_at FROM public.users",
+        `SELECT id, name, email, password, created_at, modified_at FROM public.users WHERE name='${name}'`,
       );
   
       // Commit the transaction
