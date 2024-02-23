@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 const pool = new Pool({
   user: 'root',
   host: 'postgres',
-  database: 'odCal',
+  database: 'woxDb',
   password: '1234',
   port: 5432,
 });
@@ -30,14 +30,14 @@ app.get('/valon', async (req, res) => {
     
         // Use a parameterized query to prevent SQL injection
         const result = await client.query(
-          "SELECT id, name, email, password, created_at, modified_at FROM public.users",
+          "SELECT id, name, email, password, created_at, modified_at FROM public.users WHERE name='valon'",
         );
     
         // Commit the transaction
         await client.query('COMMIT');
     
         //const newUser = result;
-        res.json(result);
+        res.json(result.rows[0]);
       } catch (error) {
         // Rollback the transaction in case of an error
         await client.query('ROLLBACK');
