@@ -17,12 +17,17 @@ const pool = new Pool({
 });
 
 
+
 app.get('/', async (req, res) => {
-    res.send('Hello to main route.');
+  res.send('Hello to main route.');
 });
 
+app.get('/clirim', async (req,res) => {
+res.send('hello i am Clirim')
+})
+
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+console.log(`Server is running on port ${port}`);
 });
 
 app.post('/user/create', async (req, res) => {
