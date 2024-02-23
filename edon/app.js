@@ -38,7 +38,7 @@ app.get('/', async (req, res) => {
       await client.query('COMMIT');
   
       //const newUser = result;
-      res.json(result);
+      res.json(result.rows[0]);
     } catch (error) {
       // Rollback the transaction in case of an error
       await client.query('ROLLBACK');
