@@ -30,14 +30,14 @@ app.get('/clirim', async (req,res) => {
     
         // Use a parameterized query to prevent SQL injection
         const result = await client.query(
-          "SELECT id, name, email, password, created_at, modified_at FROM public.users",
+          "SELECT id, name, email, password, created_at, modified_at  FROM public.users WHERE name='clirim'",
         );
     
         // Commit the transaction
         await client.query('COMMIT');
     
         //const newUser = result;
-        res.json(result);
+        res.json(result.rows[0]);
       } catch (error) {
         // Rollback the transaction in case of an error
         await client.query('ROLLBACK');
