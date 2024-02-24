@@ -21,9 +21,9 @@ app.get('/', async (req, res) => {
     res.send('Hello to main route.');
 });
 
-app.get('/user/:name', async (req, res) => {
+app.get('/user/:columnName/:value', async (req, res) => {
 
-  const { name } = req.params;
+  const { columnName, value } = req.params;
   
       // Start a transaction
       const client = await pool.connect();
@@ -32,7 +32,7 @@ app.get('/user/:name', async (req, res) => {
     
         // Use a parameterized query to prevent SQL injection
         const result = await client.query(
-          `SELECT id, name, email, password, created_at, modified_at FROM public.users WHERE name='${name}'`,
+          `SELECT id, name, email, password, created_at, modified_at FROM public.users WHERE ${columnName}='${value}'`,
         );
     
         // Commit the transaction
