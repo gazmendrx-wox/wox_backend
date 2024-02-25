@@ -113,7 +113,7 @@ app.post("/user/update", async (req, res) => {
   }
 });
 
-app.post("/user/delete", async (req, res) => {
+app.delete("/user/delete", async (req, res) => {
   const { id } = req.body;
 
   // Start a transaction
