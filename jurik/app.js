@@ -101,7 +101,7 @@ app.post('/user/update', async (req, res) => {
     const result = await client.query(
      `UPDATE public.users
      SET  name='${name}'
-     WHERE id=${id};`
+     WHERE id=${id} RETURNING name, id;`
      
     );
 
