@@ -22,7 +22,7 @@ app.get('/', async (req, res) => {
 });
 
 
-  app.get('/user/:name', async (req,res) => {
+  app.get('/user/:columnName/:value', async (req,res) => {
 
     const {  columnName, value } = req.params;
   
