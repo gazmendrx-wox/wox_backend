@@ -112,3 +112,32 @@ app.post("/user/update", async (req, res) => {
     client.release();
   }
 });
+
+app.post("/user/delete", async (req, res) => {
+  const { id } = req.body;
+
+  // Start a transaction
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query("DELETE FROM public.users WHERE id=$1", [
+      id,
+    ]);
+
+    // Commit the transaction
+    await client.query("COMMIT");
+
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query("ROLLBACK");
+
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
+});
