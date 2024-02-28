@@ -110,7 +110,7 @@ app.post('/user/update', async (req, res) => {
     // Rollback the transaction in case of an error
     await client.query('ROLLBACK');
 
-    console.error('Error creating user:', error);
+    console.error('Error updating user:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   } finally {
     // Release the client back to the pool
@@ -141,7 +141,7 @@ app.post('/user/delete', async (req, res) => {
     // Rollback the transaction in case of an error
     await client.query('ROLLBACK');
 
-    console.error('Error creating user:', error);
+    console.error('Error deleting user:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   } finally {
     // Release the client back to the pool
