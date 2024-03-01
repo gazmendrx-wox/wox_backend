@@ -16,14 +16,14 @@ ALTER TABLE IF EXISTS public.users
     OWNER to root;
 /** end of users table init **/
 
-CREATE TABLE public."Reviews"
+CREATE TABLE public.reviews
 (
     id bigserial NOT NULL,
     value text NOT NULL,
-    created_at date NOT NULL DEFAULT CURRENT.,
-    modefied_at date,
+    created_at date NOT NULL DEFAULT CURRENT_DATE,
+    modified_at date,
     PRIMARY KEY (id)
 );
 
-ALTER TABLE IF EXISTS public."Reviews"
+ALTER TABLE IF EXISTS public.reviews
     OWNER to root;

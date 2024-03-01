@@ -16,7 +16,6 @@ ALTER TABLE IF EXISTS public.users
     OWNER to root;
 /** end of users table init **/
 
-
 CREATE TABLE public.reviews
 (
     id bigserial NOT NULL,
