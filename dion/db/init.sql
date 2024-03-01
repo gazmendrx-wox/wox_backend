@@ -21,8 +21,8 @@ CREATE TABLE public.reviews
     id bigserial NOT NULL,
     value text NOT NULL,
     created_at date NOT NULL DEFAULT CURRENT_DATE,
-    modifiet_at date,
-    PRIMARY KEY (id)
+    modified_at date,
+    PRIMARY KEY (id, value)
 );
 
 ALTER TABLE IF EXISTS public.reviews
