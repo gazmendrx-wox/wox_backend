@@ -142,6 +142,11 @@ app.delete("/user/delete", async (req, res) => {
   }
 });
 
+// select reviews
+// insert reviews
+// update reviews
+// delete reviews
+
 app.post("/review/create", async (req, res) => {
   const { value } = req.body;
 
