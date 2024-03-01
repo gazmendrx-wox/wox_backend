@@ -122,7 +122,7 @@ app.post('/user/update', async (req, res) => {
   }
 });
 
-app.post('/user/delete', async (req, res) => {
+app.delete('/user/delete', async (req, res) => {
   const { id } = req.body;
 
   // Start a transaction
@@ -142,6 +142,136 @@ app.post('/user/delete', async (req, res) => {
 
     const newUser = result.rows[0];
     res.json(newUser);
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query('ROLLBACK');
+
+    console.error('Error creating user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
+});
+
+
+//REVIEW
+app.get('/review', async (req,res) => {
+
+
+  // Start a transaction
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(
+      `SELECT * FROM public.reviews `
+      
+    );
+
+    // Commit the transaction
+    await client.query('COMMIT');
+
+    //const newUser = result;
+    res.json(result.rows);
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query('ROLLBACK');
+
+    console.error('Error getting review:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
+
+})
+
+app.post('/review/create', async (req, res) => {
+  const { value } = req.body;
+
+  // Start a transaction
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(
+      'INSERT INTO reviews (value) VALUES ($1) RETURNING id,value',
+      [ value]
+    );
+
+    // Commit the transaction
+    await client.query('COMMIT');
+
+    const newRiview = result.rows[0];
+    res.json(newRiview);
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query('ROLLBACK');
+
+    console.error('Error creating user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
+});
+
+app.post('/review/update', async (req, res) => {
+  const { id, value } = req.body;
+
+  // Start a transaction
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(
+     `UPDATE public.reviews
+     SET  value='${value}'
+     WHERE id=${id} RETURNING value, id;`
+     
+    );
+
+    // Commit the transaction
+    await client.query('COMMIT');
+
+    const newRiview = result.rows[0];
+    res.json(newRiview);
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query('ROLLBACK');
+
+    console.error('Error creating user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
+});
+
+app.delete('/review/delete', async (req, res) => {
+  const { id } = req.body;
+
+  // Start a transaction
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(
+     `DELETE from public.reviews
+     WHERE id=${id} RETURNING value, id;`
+     
+    );
+
+    // Commit the transaction
+    await client.query('COMMIT');
+
+    const newRiview = result.rows[0];
+    res.json(newRiview);
   } catch (error) {
     // Rollback the transaction in case of an error
     await client.query('ROLLBACK');
