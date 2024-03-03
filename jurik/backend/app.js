@@ -156,7 +156,7 @@ app.delete('/user/delete', async (req, res) => {
 
 
 //REVIEW
-app.get('/review', async (req,res) => {
+app.get('/reviews', async (req,res) => {
 
 
   // Start a transaction
@@ -211,7 +211,7 @@ app.post('/review/create', async (req, res) => {
     // Rollback the transaction in case of an error
     await client.query('ROLLBACK');
 
-    console.error('Error creating user:', error);
+    console.error('Error creating review:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   } finally {
     // Release the client back to the pool
@@ -244,7 +244,7 @@ app.post('/review/update', async (req, res) => {
     // Rollback the transaction in case of an error
     await client.query('ROLLBACK');
 
-    console.error('Error creating user:', error);
+    console.error('Error creating review:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   } finally {
     // Release the client back to the pool
@@ -276,7 +276,7 @@ app.delete('/review/delete', async (req, res) => {
     // Rollback the transaction in case of an error
     await client.query('ROLLBACK');
 
-    console.error('Error creating user:', error);
+    console.error('Error creating review:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   } finally {
     // Release the client back to the pool
