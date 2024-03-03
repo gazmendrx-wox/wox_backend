@@ -9,11 +9,11 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   backend:
     build:
-      context: .
+      context: ./backend
     ports:
       - "3001:3001"
     depends_on:
@@ -25,17 +25,26 @@ services:
       PGPASSWORD: '1234'
       PGPORT: 5432
 
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
   pgadmin:
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: 'gazmendrx@gmail.com'
+      PGADMIN_DEFAULT_EMAIL: 'root@root.com'
       PGADMIN_DEFAULT_PASSWORD: '1234'
     ports:
       - "5050:80"
     volumes:
-      - ./db/pgadmin/server.json:/pgadmin4/servers.json
+      - ./backend/db/pgadmin/server.json:/pgadmin4/servers.json
     depends_on:
       - postgres
 
 volumes:
   postgres_data:
+
