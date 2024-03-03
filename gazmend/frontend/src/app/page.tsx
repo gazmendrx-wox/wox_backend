@@ -21,6 +21,7 @@ const persons = [
  * Krijo nje komponent te ri, per Courses, i cili liston nga nje array const courses = [], 
  * nje object course, ka atributet id, name, length_of_weeks 
  * 
+ * Me shfaq Course: [name] - has lasted [length_of_weeks]
  */
 
 export default function Home() {
