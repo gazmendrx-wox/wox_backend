@@ -26,3 +26,6 @@ CREATE TABLE public.reviews
 
 ALTER TABLE IF EXISTS public.reviews
     OWNER to root;
+    
+    ALTER TABLE IF EXISTS public.reviews
+    ALTER COLUMN modife_at DROP NOT NULL;
