@@ -22,7 +22,7 @@ CREATE TABLE public.reviews
     value text NOT NULL,
     created_at date NOT NULL DEFAULT CURRENT_DATE,
     modified_at date,
-    PRIMARY KEY (id, value)
+    PRIMARY KEY (id)
 );
 
 ALTER TABLE IF EXISTS public.reviews

@@ -2,12 +2,14 @@ FROM node:20
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY ./ ./
 
 RUN npm install
 
+RUN npm run build
+
 COPY . .
 
-EXPOSE 3001
+EXPOSE 4200
 
-CMD ["node", "app.js"]
+CMD ["npm", "start"]
