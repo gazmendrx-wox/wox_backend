@@ -27,3 +27,6 @@ CREATE TABLE public.reviews
 
 ALTER TABLE IF EXISTS public.reviews
     OWNER to root;
+
+ALTER TABLE IF EXISTS public.reviews
+    RENAME modifiet_at TO modified_at;
