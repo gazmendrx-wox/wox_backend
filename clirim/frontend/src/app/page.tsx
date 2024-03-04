@@ -12,11 +12,11 @@ const persons = [
 ]
 
 const courses = [
-  {id: 1, name: 'html', length_of_weeks: '1 weak' },
-  {id: 2, name: 'css', length_of_weeks: '2 weak' },
-  {id: 3, name: 'javascipt', length_of_weeks: '4 weak' },
-  {id: 4, name: 'postgresql', length_of_weeks: '2 weak' },
-  {id: 5, name: 'express', length_of_weeks: '2 weak' },
+  {id: 6, name: 'html', length_of_weaks: '1 weak' },
+  {id: 7, name: 'css', length_of_weaks: '2 weak' },
+  {id: 8, name: 'javascipt', length_of_weaks: '4 weak' },
+  {id: 9, name: 'postgresql', length_of_weaks: '2 weak' },
+  {id: 10, name: 'express', length_of_weaks: '2 weak' },
 ]
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
   ))}
 
   {courses.map(i => (
-    <Courses key={i.id} name={i.name} length_of_weeks={i.length_of_weeks} />
+    <Courses key={i.id} name={i.name} length_of_weaks={i.length_of_weaks} />
   ))}
   </>
 }
