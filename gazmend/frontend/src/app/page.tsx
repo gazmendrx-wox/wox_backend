@@ -24,10 +24,25 @@ const persons = [
  * Me shfaq Course: [name] - has lasted [length_of_weeks]
  */
 
+function myFunction(a, b) {
+  return a+b //return value ktu bon return te vlerave; Vlerat munden me qen string, number, etj.
+}
+
+//return value ne React Components gjithmone ka me qen JSX, JSX = HTML + JavaScript
 export default function Home() {
+  // Fillimi i JavaScript
+  const javascript = 'Javascript';
+  const numbers = [1,2,3,4,5];
+  //Mbarimi i JavaScript - rrespektivisht Fillimi i JSX;
   return <>
+    <h1>Hello Valon;</h1>
     {
-      persons.map((person) => <Person key={person.id} name={person.name} />)
+      /**
+       * nderprerje ne syntax; prej HTML -> JS
+       */
+      // numbers.map((number) => <Number />)
     }
+    <p>Hello i Am a Paragraph;</p>
+    <h3>I am an epic mix of HTML AND {javascript}</h3>
   </>
 }
