@@ -27,6 +27,9 @@
  * 
  * Profesioni eshte nje checkbox, me vlera nga nje array of professions, Programer, Student, Praktikant.
  * Selektimi i checkboxes ben update shfaqjen e tyre ne use-state-homework-1 page.
+ * 
+ * Te gjitha informatat ne fund te shfaqen mrenda nje 
+ * <div>{Informata e pare} {Informata e dyte} {Informata e trete}</div>
  */
 
 export default function StateHomeWork() {
