@@ -11,7 +11,7 @@ services:
     volumes:
       - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-    backend:
+  backend:
     build:
       context: ./backend
     ports:
@@ -24,14 +24,6 @@ services:
       PGDATABASE: 'woxDb'
       PGPASSWORD: '1234'
       PGPORT: 5432
-    frontend:
-    build:
-      context: ./frontend
-    ports:
-      
-  
-
-
 
   frontend:
     build:
