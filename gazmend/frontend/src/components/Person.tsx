@@ -7,9 +7,8 @@
  * 
  * Person({name}) {}
  */
-export default function Person({name, setName}) {
+export default function Person({name}) {
     return <>
         <h1>Child component: {name}</h1>
-        <button onClick={() => setName('Gazmend')}>Revert</button>
     </>
 }
