@@ -20,16 +20,16 @@ const persons = [
  * Me shfaq Course: [name] - has lasted [length_of_weeks]
  */
 const courses = [
-  {id:1, name: 'HTML', length_of_weeks: '1 week'},
-  {id:2, name: 'CSS', length_of_weeks: '2 weeks'},
-  {id:3, name: 'JS', length_of_weeks: '3 weeks'},
-  {id:4, name: 'Trello', length_of_weeks: '4 weeks'},
-  {id:5, name: 'GIT', length_of_weeks: '5 weeks'}
+  {id:6, name: 'HTML', length_of_weeks: '1 week'},
+  {id:7, name: 'CSS', length_of_weeks: '2 weeks'},
+  {id:8, name: 'JS', length_of_weeks: '3 weeks'},
+  {id:9, name: 'Trello', length_of_weeks: '4 weeks'},
+  {id:10, name: 'GIT', length_of_weeks: '5 weeks'}
 ]
 export default function Home(){
   return <>
   {
-    persons.map((person) => <Person key={person.id} name={person.name} city={person.city} />)
+    persons.map((person) => <Person key={person.id} name={person.name}  />)
   }
   {
     courses.map((course) => <Course key={course.id} name={course.name} length_of_weeks={course.length_of_weeks} />)
