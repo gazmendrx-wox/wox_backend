@@ -1,12 +1,20 @@
-import { useState } from "react"
-import Person from "../../components/courses";
 
+import Person from "@/components/Person";
+import { useState } from "react"
 
 export default function StateDemo(){
-
-    const[name,setName] = useState('Dion');
-
-    return <><h1>Hello I am {name}</h1>
-    <Person name={name} length_of_weeks={undefined}/>
-    <button onClick={() => setName('Clirim')}>Change name</button></>
+    /**
+     * name -> vlera
+     * setName -> funksioni per ndryshimin e vleres
+     * = useState() gjendja fillestare;
+     */
+    const [name, setName] = useState('Gazmend');
+    return <>
+        <h1>Parent component: {name}</h1>
+        <Person name={name} setName={setName} />
+        <Person name={name} setName={setName} />
+        <Person name={name} setName={setName} />
+        <Person name={name} setName={setName} />
+        <button onClick={() => setName('Clirim')}>Change name</button>
+    </>
 }
