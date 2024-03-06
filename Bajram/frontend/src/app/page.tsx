@@ -29,7 +29,7 @@ const courses = [
 export default function Home(){
   return <>
   {
-    persons.map((person) => <Person key={person.id} name={person.name} city={person.city} />)
+    persons.map((person) => <Person key={person.id} name={person.name} setName={undefined}  />)
   }
   {
     courses.map((course) => <Course key={course.id} name={course.name} length_of_weeks={course.length_of_weeks} />)
