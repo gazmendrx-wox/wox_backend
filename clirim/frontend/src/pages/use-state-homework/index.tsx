@@ -17,6 +17,6 @@ export default function StateHomeWork() {
         <TextInput fieldName='SurName' text={surname} changeText={setSurname}/>
         <Dropdown fieldName='City' selectedOption={city} options={cities} changeOption={setCity} />
         <Checkbox fieldName="Profesioni" changeOption={setSelectedOptions} selectedOptions={selectedOptions} options={options} />
-        <div> Unë jam {name} {surname} me vendbanim në {city} me Profesion:{selectedOptions}</div>
+        <div> Unë jam: {name} {surname} me vendbanim në: {city} me Profesion:{selectedOptions}</div>
     </>
 }
