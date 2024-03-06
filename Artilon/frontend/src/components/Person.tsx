@@ -1,3 +1,6 @@
-export default function Person({name,city}){
-    return <h1>Hello I am {name} I am living in {city}</h1>
+export default function Person({name ,setName , surname , setSurname}){
+    return <>
+    <h1>Hello I am {name} {surname}</h1>
+    <button onClick={() => setName('Artilon')}>Revert</button>
+    </>
 }

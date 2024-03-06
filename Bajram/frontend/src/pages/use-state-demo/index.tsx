@@ -10,10 +10,10 @@ export default function StateDemo(){
     const [name, setName] = useState('Gazmend');
     return <>
         <h1>Parent component: {name}</h1>
-        <Person name={name}  />
-        <Person name={name} />
-        <Person name={name}  />
-        <Person name={name} />
+        <Person name={name} setName={undefined}  />
+        <Person name={name} setName={undefined} />
+        <Person name={name} setName={undefined}  />
+        <Person name={name} setName={undefined} />
         <button onClick={() => setName('Clirim')}>Change name</button>
     </>
 }
