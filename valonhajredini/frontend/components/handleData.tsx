@@ -1,4 +1,4 @@
-export default function handleData(){
+export default function handleData({fieldName}){
     const data = {
         sports: {
             football: [
@@ -30,11 +30,11 @@ export default function handleData(){
                 {id:20, name: 'Hank Aaron', homeruns: 755}
             ],
             hockey: [
-                {id:21, name: 'Gordie Howe', goals: 801},
-                {id:22, name: 'Wayne Gretzky', goals: 894},
-                {id:23, name: 'Mario Lemieux', goals: 690},
-                {id:24, name: 'Maurice Richard', goals: 500},
-                {id:25, name: 'Bobby Orr', goals: 567}
+                {id:21, name: 'Gordie Howe', goals_hockey: 801},
+                {id:22, name: 'Wayne Gretzky', goals_hockey: 894},
+                {id:23, name: 'Mario Lemieux', goals_hockey: 690},
+                {id:24, name: 'Maurice Richard', goals_hockey: 500},
+                {id:25, name: 'Bobby Orr', goals_hockey: 567}
             ]
         },
         games: {
@@ -75,8 +75,24 @@ export default function handleData(){
             ]
 
         }
-    }
-    return <div>
-        <h1>DATA</h1>
-    </div>
+    };
+    return Object.keys(data).map((obj, i) => {
+        return (
+            <div>
+                <div>
+                <h3>{fieldName}</h3>
+                id is: {data[obj].id} ;
+                name is: {data[obj].name} ;
+                he scored {data[obj].goals}
+                </div>
+                <div>
+                <h3>{fieldName}</h3>
+                id is: {data[obj].id} ;
+                name is: {data[obj].name} ;
+                he scored {data[obj].baskets}
+                </div>
+ 
+            </div>
+        )
+    })
 }
