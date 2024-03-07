@@ -76,23 +76,37 @@ export default function handleData({fieldName}){
 
         }
     };
-    return Object.keys(data).map((obj, i) => {
-        return (
-            <div>
-                <div>
+    return (
+        <div>
+          <ul>
+            {Object.keys(data.sports).map((obj) => (
+              <li key={obj}>
                 <h3>{fieldName}</h3>
-                id is: {data[obj].id} ;
-                name is: {data[obj].name} ;
-                he scored {data[obj].goals}
-                </div>
-                <div>
-                <h3>{fieldName}</h3>
-                id is: {data[obj].id} ;
-                name is: {data[obj].name} ;
-                he scored {data[obj].baskets}
-                </div>
- 
-            </div>
-        )
-    })
+                <ul>
+                  {data.sports[obj].map((player) => (
+                    <li key={player.id}>
+                      {player.name} - {obj === 'football' ? `Goals: ${player.goals}` : `Baskets: ${player.baskets}`  }
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+    
+          <ul>
+            {Object.keys(data.games).map((game) => (
+              <li key={game}>
+                <h3>{game}</h3>
+                <ul>
+                  {data.games[game].map((item) => (
+                    <li key={item.id}>
+                      {item.name} - {game === 'fifa' ? `Division: ${item.division}` : `Team: ${item.team}`}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
 }
