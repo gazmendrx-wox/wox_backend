@@ -7,9 +7,11 @@
  * 
  * Person({name}) {}
  */
-export default function Person({name, setName}) {
-    return <>
-        <h1>Child component: {name}</h1>
-        <button onClick={() => setName('Gazmend')}>Revert</button>
-    </>
-}
+export default function Person({ name, city }) {
+    return (
+      <h1>
+        Hi, I am {name}, I live in {city}
+      </h1>
+    );
+  }
+  
