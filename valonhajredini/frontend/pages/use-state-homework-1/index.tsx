@@ -39,19 +39,15 @@ import Profesioni from "@/components/Profesioni";
 export default function StateHomeWork() {
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
-
     const cities = ['Prishtinë', 'Bujanovc', 'Gjilan', 'Preshevë', 'Osllarë'];
     const [city, setCity] = useState('');
-
     const profesionet = ['Programer' , 'Student' , 'Praktikant'];
     const [profesion, setProfesion] = useState('');
 
     return <>
         <DetajetPersonale fieldName={'Emri'} text={name} ChangeText={setName}/>
         <DetajetPersonale fieldName={'Mbiemri'} text={surname} ChangeText={setSurname}/>
-
         <VendBanimi fieldName="City" selectedOption={city} options={cities} changeOption={setCity} />
-
         <Profesioni fieldName="Profesioni" selectedOption={profesion} options={profesionet} changeOption={setProfesion}/>
 
         { name && surname && city && profesion.length > 0 && (
