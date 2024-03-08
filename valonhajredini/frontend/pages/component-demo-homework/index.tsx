@@ -6,11 +6,12 @@
  */
 
 import React from "react";
-import handleData from "@/components/objekti";
+import HandleData from "@/components/objekti";
 
 
 export default function Home(){
     return<>
+    <HandleData/>
     </>
     
     
