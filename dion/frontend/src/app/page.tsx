@@ -1,7 +1,7 @@
 "use client"
 
-import Person from "../../components/Person"
-import Courses from "../../components/courses"
+import Person from "../components/Person"
+import Courses from "../components/courses"
 
 
 
