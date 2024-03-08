@@ -1,5 +1,5 @@
-import Games from "@/components/Games";
-import Sports from "@/components/Sports";
+import Games from "@/components/data-and-components/games-data/Games";
+import Sports from "@/components/data-and-components/sports-data/Sports";
 
 
 const data = {
