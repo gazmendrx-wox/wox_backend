@@ -1,7 +1,7 @@
 "use client"
 
-import Courses from "../components/examplesInreact/Courses"
-import Person from "../components/examplesInreact/Person"
+import Courses from "../components/example-react/Courses"
+import Person from "../components/example-react/Person"
 
 const persons = [
   {id:1, name: 'Gazmend', city: 'Prishtina'},
