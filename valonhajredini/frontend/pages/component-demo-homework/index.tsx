@@ -6,7 +6,7 @@
  */
 
 import React from "react";
-import HandleData from "@/components/objekti";
+import HandleData from "@/components/handleData";
 
 
 export default function Home(){
