@@ -8,5 +8,7 @@
  * Person({name}) {}
  */
 export default function Person({name}) {
-    return <h1>Hello I am {name}</h1>
+    return <>
+        <h1>Child component: {name}</h1>
+    </>
 }
