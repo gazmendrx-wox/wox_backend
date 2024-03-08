@@ -36,7 +36,7 @@ export default function SportsData() {
                         <ul>
                             {data.sports[sportType].map(player => (
                                 <li key={player.id}>
-                                    {player.name} - {player.goals || player.baskets} {player.goals ? 'gola' : 'baskets'}
+                                    {player.name} - {player.goals || player.baskets} {player.goals ? 'goals' : 'baskets'}
                                 </li>
                             ))}
                         </ul>
@@ -52,7 +52,7 @@ export default function SportsData() {
                         <ul>
                             {data.games[gameType].map(game => (
                                 <li key={game.id}>
-                                    {game.name} - {game.division || game.team} {game.division ? 'divizioni' : 'ekipi'}
+                                    {game.name} - {game.division || game.team} {game.division ? 'division' : 'team'}
                                 </li>
                             ))}
                         </ul>

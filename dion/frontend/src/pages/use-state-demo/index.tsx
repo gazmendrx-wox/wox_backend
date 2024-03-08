@@ -1,6 +1,7 @@
 
-import Person from "@/components/Person";
+
 import { useState } from "react"
+import Person from "../../src/components/Person";
 
 export default function StateDemo(){
     /**
@@ -17,4 +18,4 @@ export default function StateDemo(){
         <Person name={name} setName={setName} />
         <button onClick={() => setName('Clirim')}>Change name</button>
     </>
-}
+} 

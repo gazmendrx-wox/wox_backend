@@ -32,6 +32,32 @@
  * <div>{Informata e pare} {Informata e dyte} {Informata e trete}</div>
  */
 
+import PersonalDetails from "@/components/PersonalDetails";
+import Vendbanim from "@/components/Vendbanim";
+import { useState } from "react";
+import Profesion from "@/components/Profesion";
+
 export default function StateHomeWork() {
+    const [name, setName] = useState('')
+    const [surname, setSurname] = useState('')
+
+    const cities = ['Prishtinë', 'Bujanovc', 'Gjilan', 'Preshevë'];
+    const [city, setCity] = useState('');
+
+    const profesionet = ['Programer' , 'Student' , 'Praktikant'];
+    const [profesion, setProfesion] = useState('');
+
+    return <>
+        <PersonalDetails fieldName={'Name'} text={name} ChangeText={setName}/>
+        <PersonalDetails fieldName={'Surname'} text={surname} ChangeText={setSurname}/>
+
+        <Vendbanim fieldName="City" selectedOption={city} options={cities} changeOption={setCity} />
+
+        <Profesion fieldName="Profesion" selectedOption={profesion} options={profesionet} changeOption={setProfesion}/>
+
+        { name && surname && city && profesion.length > 0 && (
+            <h1>Unë jam {name} {surname} i lindur në {city} me profesion {profesion}.</h1>
+        )}
+    </>
     
 }
