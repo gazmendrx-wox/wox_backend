@@ -32,20 +32,12 @@ const IndexPage = () => {
   return (
     <div>
       <h1>Sports Data</h1>
-      {data.sports && (
-        <>
-          <Sport sportName="Football" players={data.sports.football} />
-          <Sport sportName="Basketball" players={data.sports.basketball} />
-        </>
-      )}
+      <Sport sportName="Football" players={data.sports.football} />
+      <Sport sportName="Basketball" players={data.sports.basketball} />
 
       <h1>Games Data</h1>
-      {data.games && (
-        <>
-          <Game gameName="FIFA" teams={data.games.fifa} />
-          <Game gameName="CS:GO" teams={data.games.csgo} />
-        </>
-      )}
+      <Game gameName="FIFA" teams={data.games.fifa} />
+      <Game gameName="CSGO" teams={data.games.csgo} />
     </div>
   );
 };
