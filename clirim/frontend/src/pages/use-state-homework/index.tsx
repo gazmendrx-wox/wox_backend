@@ -1,7 +1,7 @@
 import { useState } from "react"
-import Dropdown from "@/components/Dropdown";
-import Checkbox from "@/components/Checkbox";
-import TextInput from "@/components/TextInput";
+import Dropdown from "@/components/example-react/Dropdown";
+import Checkbox from "@/components/example-react/Checkbox";
+import TextInput from "@/components/example-react/TextInput";
 
 export default function StateHomeWork() {
     const [name, setName] = useState('')

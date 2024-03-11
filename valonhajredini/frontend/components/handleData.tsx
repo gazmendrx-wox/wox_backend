@@ -76,20 +76,57 @@ export default function HandleData(){
 
         }
     };
+
+    function handleStatistics(player, obj){
+      if (obj === 'football'){
+        return `${player.goals} goals`
+      }
+      if (obj === 'basketball'){
+        return `${player.baskets} baskets`
+      }
+      if (obj === 'pool'){
+        return `${player.pockets} pockets`
+      }
+      if (obj === 'baseball'){
+        return `${player.homeruns} homeruns`
+      }
+      if (obj === 'hockey'){
+        return `${player.goals_hockey} hockey goals`
+      }
+    }
+
+    function handleGameStats(game, gameName){
+      if (gameName === 'fifa'){
+        return `${game.division} division`
+      }
+      if (gameName === 'csgo'){
+        return `${game.team} team`
+      }
+      if (gameName === 'gta_5'){
+        return `${game.subscribes} subscribes`
+      }
+      if (gameName === 'minecraft'){
+        return `${game.levels} levels`
+      }
+      if (gameName === 'fortnite'){
+        return `${game.wins} wins`
+      }
+    }
+
     return (
     <>
          <div>
               <ul>
                 {Object.keys(data.sports).map((obj) => (
                   <li key={obj}>
-                    <h3>{obj}</h3>
-                    <ul>
+                    <h4>{obj}</h4>
+                    <ol>
                       {data.sports[obj].map((player) => (
                         <li key={player.id}>
-                            {player.name} - {player.goals || player.baskets || player.pockets || player.homeruns || player.goals_hockey}
+                            {player.name} - {handleStatistics(player, obj)}
                         </li>
                       ))}
-                    </ul>
+                    </ol>
                   </li>
                 ))}
               </ul>
@@ -99,14 +136,14 @@ export default function HandleData(){
                 {Object.keys(data.games).map((gameName) => (
                   <div>
                     <li key={gameName}>
-                    <h3>{gameName}</h3>
-                    <ul>
+                    <h4>{gameName}</h4>
+                    <ol>
                       {data.games[gameName].map((game) => (
                         <li key={game.id}>
-                          {game.name} - {game.division || game.team  || game. subscribes || game.levels || game.wins }
+                          {game.name} - {handleGameStats(game, gameName)}
                         </li>
                       ))}
-                    </ul>
+                    </ol>
                   </li>
                   </div>
                 ))}

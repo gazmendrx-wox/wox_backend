@@ -1,4 +1,4 @@
-import SportsData from "@/components/SportsData";
+import SportsData from "@/components/example-react/SportsData";
 
 export default function App() {
     return<>
