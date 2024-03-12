@@ -1,4 +1,4 @@
-"use clinet";
+"use client";
 
 import Person from "@/components/Person";
 import Course from "@/components/Course";
