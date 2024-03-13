@@ -33,9 +33,9 @@ const PageUseEffectDemo = () => {
     getProducts();
   }, [name]);
 
-  useEffect(() => {
-    document.title = name;
-  }, [name]);
+  // useEffect(() => {
+  //   document.title = name;
+  // }, [name]);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
