@@ -13,7 +13,7 @@ export default function ProductList({ data }) {
             <h2>Product List</h2>
             <ul className="product-list">
                 {data.map(product => (
-                    <li key={product.id} className="product-item">
+                    <p key={product.id} className="product-item">
                         <ProductsData
                             id={product.id}
                             title={product.title}
@@ -25,7 +25,7 @@ export default function ProductList({ data }) {
                             rating={product.rating}
                             stock={product.stock}
                         />
-                    </li>
+                    </p>
                 ))}
             </ul>
         </div>
