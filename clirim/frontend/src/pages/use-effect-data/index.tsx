@@ -1,4 +1,3 @@
-// ProductContainer.js
 import React, { useState, useEffect } from 'react';
 import '../use-effect-data/style.css'
 import Data from '@/components/useEffect-data/Data';
@@ -20,10 +19,12 @@ export default function ProductContainer() {
         getProducts();
       }, []);
 
-    console.log(data, 'teststse')
+
+    console.log(data)
+
 
     return (
-        <div className="product-container"> {/* Apply the CSS class */}
+        <div className="product-container">
             <h1>Product Container</h1>
             <Data data={data} />
         </div>
