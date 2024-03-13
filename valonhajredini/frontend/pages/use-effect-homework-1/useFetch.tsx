@@ -1,27 +1,31 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function useFetch(url) {
-    const [products, setProducts] = useState(null)
+export default function useFetch(url){
+    const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        const getProducts = async () => {
-            try{
-                fetch(url)
-                .then((res) => res.json())
-                .then((data) => { setProducts(data) });
-            } catch (error) {
-                console.error('Error getting data');
-                setLoading(false)
-            }
-        };
+useEffect(() => {
+    const getData = async () => {
+      try {
+        fetch(url)
+          .then((res) => res.json())
+          .then((data) => {
+            setData(data)
+            setLoading(false)
+          });
+      } catch (error) {
+        console.error("Error to load data");
+        setLoading(false)
+      }
+    };
 
-        getProducts();
+    getData();
 
-        return () => {
-            setProducts(null)
-        }
-    }, [url]);
+    return () => {
+        setData(null)
+    }
+  }, [url]);
 
-    return { products, loading }
+
+  return {data , loading}
 }
