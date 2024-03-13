@@ -1,7 +1,7 @@
 //data per produktet
 import Produkti from "./produkti";
-export default function Data({data}) {
+export default function Data({dataProducts}) {
     return<>
-        <Produkti data={data.products}/>
+        <Produkti dataProducts={dataProducts}/>
     </>
 }
