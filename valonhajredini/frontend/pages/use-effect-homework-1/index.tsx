@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Produkti from '@/components/produkti'
+import Data from '@/components/data'
 
 export default function UseEffectHomework(){
     const [products, setProducts] = useState()
@@ -18,7 +18,6 @@ export default function UseEffectHomework(){
     }, [])
     console.log(products)
     return <div>
-        {<Produkti products={products}/>}
+        {<Data data={products}/>}
     </div>
-
 }
