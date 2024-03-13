@@ -3,7 +3,9 @@ import ProductsData from './ProductsData';
 import './../../pages/use-effect-Homework/style.css'
 export default function ProductList({ data }) {
 
-   
+    if (!data) {
+        return <div>Loading...</div>;
+    }
 
     console.log(data, 'data')
     return (
