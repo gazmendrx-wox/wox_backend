@@ -1,9 +1,9 @@
 import ProductList from "./ProductList";
 
-export default function Data({data}) {
+export default function Data({dataProducts}) {
 
 
     return<>
-        <ProductList data={data.products}/>
+        <ProductList dataProducts={dataProducts.products}/>
     </>
 }

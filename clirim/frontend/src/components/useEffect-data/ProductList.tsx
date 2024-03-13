@@ -1,18 +1,18 @@
 import React from 'react';
 import ProductsData from './ProductsData';
 import './../../pages/use-effect-data/style.css'
-export default function ProductList({ data }) {
+export default function ProductList({ dataProducts }) {
 
-    if (!data) {
-        return <div>Loading...</div>;
-    }
+    // if (!data) {
+    //     return <div>Loading...</div>;
+    // }
     
-    console.log(data, 'data')
+    console.log(dataProducts, 'data')
     return (
         <div>
             <h2>Product List</h2>
             <ul className="product-list">
-                {data.map(product => (
+                {dataProducts.map(product => (
                     <p key={product.id} className="product-item">
                         <ProductsData
                             id={product.id}

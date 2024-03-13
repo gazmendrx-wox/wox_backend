@@ -1,24 +1,20 @@
 import { useEffect, useState } from 'react'
-import Produkti from '@/components/produkti'
+import Data from '@/components/data'
+import useFetch from './useFetch'
 
 export default function UseEffectHomework(){
-    const [products, setProducts] = useState()
+    const { products: dataProducts, loading: loadingProducts } = useFetch("https://dummyjson.com/products")
 
-    useEffect(() => {
-        const getProducts = async () => {
-            try{
-                fetch('https://dummyjson.com/products')
-                .then(res => res.json())
-                .then(data => setProducts(data));
-            }catch(error) {
-                console.error('Error getting data')
-            }
-        }
-        getProducts()
-    }, [])
-    console.log(products)
+    if(loadingProducts){
+        console.log("Loading...")
+    }
+
+    if(!loadingProducts){
+        console.log("Products", dataProducts )
+    }
+
     return <div>
-        {<Produkti products={products}/>}
+        {dataProducts && <Data dataProducts={dataProducts}/>}
     </div>
 
 }

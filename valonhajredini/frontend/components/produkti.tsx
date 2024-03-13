@@ -1,8 +1,10 @@
 import Product from "./product"
-export default function Produkti({products}){
+import React from "react"
+export default function Produkti({dataProducts}){
     return <div>
         {
-            products.map((product) => <Product id={product.id} title={product.title} description={product.description} price={product.price} discountPercentage={product.discountPercentage}/>)
+            dataProducts.map((product) => <Product id={product.id} title={product.title} description={product.description} price={product.price}/>)
         }
     </div>
+    
 }

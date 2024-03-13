@@ -2,7 +2,7 @@
 import React from 'react';
 import './../../pages/use-effect-Homework/style.css'
 
-export default function ProductDetails({ id, title, description, price, brand, discountPercentage, rating, category }) {
+export default function ProductDetails({ id, title, description, price, brand, discountPercentage, rating, category, stock }) {
     return (
         <div className="product-details"> {/* Apply the CSS class */}
             <h2 key={id}>Product Details</h2>
@@ -13,6 +13,7 @@ export default function ProductDetails({ id, title, description, price, brand, d
             <p>discountPercentage: {discountPercentage}</p>
             <p>rating: {rating}</p>
             <p>category: {category}</p>
+            <p>stock: {stock}</p>
         </div>
     );
 }
