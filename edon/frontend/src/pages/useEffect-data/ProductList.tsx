@@ -23,6 +23,7 @@ export default function ProductList({ data }) {
                             discountPercentage = {product.discountPercentage}
                             rating = {product.rating}
                             category = {product.category}
+                            stock = {product.stock}
                         />
                     </li>
                 ))}
