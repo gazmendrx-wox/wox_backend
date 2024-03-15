@@ -32,32 +32,41 @@
  * <div>{Informata e pare} {Informata e dyte} {Informata e trete}</div>
  */
 
-import PersonalDetails from "@/components/PersonalDetails";
-import Vendbanim from "@/components/Vendbanim";
-import { useState } from "react";
-import Profesion from "@/components/Profesion";
+import { useState } from "react"
+import PersonalDetails from "@/components/PersonalDetails"
+import Vendbanim from "@/components/Vendbanim"
+import Profesion from "@/components/Profesion"
 
 export default function StateHomeWork() {
-    const [name, setName] = useState('')
-    const [surname, setSurname] = useState('')
+  const [name, setName] = useState('')
 
-    const cities = ['Prishtinë', 'Bujanovc', 'Gjilan', 'Preshevë'];
-    const [city, setCity] = useState('');
+  const [surname, setSurname] = useState('')
 
-    const profesionet = ['Programer' , 'Student' , 'Praktikant'];
-    const [profesion, setProfesion] = useState('');
 
-    return <>
-        <PersonalDetails fieldName={'Name'} text={name} ChangeText={setName}/>
-        <PersonalDetails fieldName={'Surname'} text={surname} ChangeText={setSurname}/>
+  const cities = ['Prishtinë', 'Bujanovc', 'Gjilan', 'Preshevë'];
 
-        <Vendbanim fieldName="City" selectedOption={city} options={cities} changeOption={setCity} />
+  const [city, setCity] = useState('');
 
-        <Profesion fieldName="Profesion" selectedOption={profesion} options={profesionet} changeOption={setProfesion}/>
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
-        { name && surname && city && profesion.length > 0 && (
-            <h1>Unë jam {name} {surname} i lindur në {city} me profesion {profesion}.</h1>
-        )}
-    </>
-    
+  const options = ['Programer', 'Student', 'Praktikant'];
+
+
+
+
+
+  return <>
+    <PersonalDetails fieldName='Name' text={name} changeText={setName} />
+    <PersonalDetails fieldName='SurName' text={surname} changeText={setSurname} />
+
+    <Vendbanim fieldName='City' selectedOption={city} options={cities[0]} changeOption={setCity} />
+
+    <Profesion fieldName="Profesioni" changeOption={setSelectedOptions} selectedOptions={selectedOptions} options={options} />
+    {name && surname && city && selectedOptions.length > 0 &&
+      <h1> Unë jam {name} {surname} me vendbanim në {city} me Profesion:{selectedOptions}</h1>
+
+
+    }
+
+  </>
 }

@@ -12,22 +12,26 @@
 'use client'
 import Recipes from "@/components/Recipes"
 import { useState , useEffect } from "react"
+import useFetch from "./useFetch";
+import UserData from "@/components/UserData";
+import CartsData from "@/components/CartsData";
 
 export default function EffectHomework(){
 
-    const [recipes , setRecipes] = useState()
+    const { data: recipeData , loading: recipeLoading } = useFetch('https://dummyjson.com/recipes');
+    const { data: userData , loading: userLoading } = useFetch('https://dummyjson.com/users');
+    const { data: cartData , loading: cartLoading } = useFetch('https://dummyjson.com/carts');
 
-    useEffect(() => {
-        const getRecipes = async () => {          
-            fetch('https://dummyjson.com/recipes')
-                .then(res => res.json())
-                .then(data => setRecipes(data));
-        }
-        getRecipes()
-    }, [])
-    console.log(recipes)
+    if(recipeLoading || userLoading || cartLoading){
+        return <h1>Loading</h1>
+    }
 
     return <div>
-        {recipes && <Recipes data={recipes.recipes}/>}
+        <CartsData data={cartData}/>
+        <UserData data={userData} />
+        <Recipes data={recipeData}/>
+        
+
+        
     </div>
 }

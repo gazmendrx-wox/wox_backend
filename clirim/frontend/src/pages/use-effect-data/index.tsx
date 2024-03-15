@@ -1,32 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import '../use-effect-data/style.css'
 import Data from '@/components/useEffect-data/Data';
+import useFetch from './useFetch';
+import Recipies from '@/components/useEffect-data/Recipies';
+import Users from '@/components/useEffect-data/Users';
 
 export default function ProductContainer() {
-    const [data, setData] = useState([]);
+  const { data: dataProducts, loading: loadingProducts } = useFetch('https://dummyjson.com/products')
+  const { data: dataRecipes, loading: loadingrRcipes } = useFetch('https://dummyjson.com/recipes')
+  const { data: dataUsers, loading: loadingUsers } = useFetch('https://dummyjson.com/users')
+  
+  
 
-    useEffect(() => {
-        const getProducts = async () => {
-          try {
-            fetch("https://dummyjson.com/products")
-              .then((res) => res.json())
-              .then((data) => setData(data));
-          } catch (error) {
-            console.error("Error to load data");
-          }
-        };
-    
-        getProducts();
-      }, []);
+  if(loadingProducts) {
+      return <div>loadingProducts</div>
+  }
 
+  if(loadingrRcipes) {
+    return <div>loadingrRcipes</div>
+  }
 
-    console.log(data)
+  if(loadingUsers) {
+    return <div>loadingUsers</div>
+  }
+
+    console.log(dataUsers)
 
 
     return (
         <div className="product-container">
             <h1>Product Container</h1>
-            <Data data={data} />
+           <Data dataProducts={dataProducts} />
+           <Recipies dataRecipes={dataRecipes}/>
+           <Users  dataUsers={dataUsers}/>
         </div>
     );
 }
