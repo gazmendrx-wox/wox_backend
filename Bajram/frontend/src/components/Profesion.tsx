@@ -1,30 +1,27 @@
-/**
- * Informata e trete = nje komponent me emrin Profesion, i cili shfaq profesionin e cekur
- * nga Parent component
- */
 
-export default function Profesion({ fieldName, selectedOption, changeOption, options }) {
-    const handleCheckboxChange = (option) => {
+export default function Profesion({ fieldName, selectedOptions, changeOption, options }) {
+
+  const handleCheckboxChange = (option) => {
+    if (selectedOptions !== option) {
+      // Update the selected option only if it's different from the current one
       changeOption(option);
-    };
-  
-    return (
-      <div>
-        {fieldName}:
-        <div>
-          {options.map((option) => (
-            <label key={option}>
-              <input
-                type="checkbox"
-                value={option}
-                checked={selectedOption === option}
-                onChange={() => handleCheckboxChange(option)}
-              />
-              {option}
-            </label>
-          ))}
+    }
+  };
+  return (
+    <div>
+      {fieldName}:
+      {options.map((option) => (
+        <div key={option}>
+          <input
+            type="checkbox"
+            id={option}
+            value={option}
+            checked={selectedOptions.includes(option)}
+            onChange={() => handleCheckboxChange(option)}
+          />
+          <label htmlFor={option}>{option}</label>
         </div>
-      </div>
-    );
-  }
-  
+      ))}
+    </div>
+  );
+}
