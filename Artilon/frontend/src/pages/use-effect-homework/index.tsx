@@ -27,11 +27,8 @@ export default function EffectHomework(){
     }
 
     return <div>
-        <CartsData data={cartData}/>
         <UserData data={userData} />
-        <Recipes data={recipeData}/>
-        
-
-        
+        <CartsData data={cartData}/>
+        <Recipes data={recipeData}/>     
     </div>
 }

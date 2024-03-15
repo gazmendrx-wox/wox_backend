@@ -1,6 +1,7 @@
+import '../css/user.css'
+
 export default function Address({data}){
-    console.log(data.address , 1)
-    return <div>
+    return <div className='address-container'>
         <p>{data.address} {data.city}</p>
     </div>
 }

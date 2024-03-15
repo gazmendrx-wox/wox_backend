@@ -1,4 +1,4 @@
-import Product from "./Product";
+import CartProd from "./CartProd";
 export default function ProductsData({ data }) {
 
 
@@ -25,17 +25,7 @@ export default function ProductsData({ data }) {
             {data.map((cart) => (
                 <div key={cart.id} style={cartStyle}>
                     <h3>Kjo cart me ID: {cart.id} i takon Userit me ID: {cart.userId}</h3>
-                    <ul style={{ listStyleType: 'none', padding: 0 }}>
-                        {cart.products.map((product) => (
-                            <li key={product.id}>
-                                <Product
-                                    title={product.title}
-                                    price={product.price}
-                                    quantity={product.quantity}
-                                />
-                            </li>
-                        ))}
-                    </ul>
+                        <CartProd data={cart}/>
                     <p>
                         <strong>Cmimi Total:</strong> {cart.total} Euro<br />
                         <strong>Cmimi me Zbritje:</strong> {cart.discountedTotal} Euro

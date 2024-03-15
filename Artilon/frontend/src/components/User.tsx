@@ -1,8 +1,21 @@
+import '../css/user.css'
 import Address from "./Address"
+import Work from './Work';
 
-export default function User({id,firstname,lastname,address}){
+export default function User({ firstname, lastname, address ,company}) {
     
-    return <p key={id}>
-        <p className="Info">Emri:{firstname} Mbiemri:{lastname} me vendbanim në  : <Address data={address}/></p>
-    </p>
-}
+    return (
+        <div className="user-container">
+          <div className="user-info">
+            <p><strong>Emri:</strong> {firstname}</p>
+            <p><strong>Mbiemri:</strong> {lastname}</p>
+            <p><strong>Vendbanimi:</strong></p>
+            <Address data={address} />
+            <p><strong>Punësimi:</strong></p>
+            <Work data={company} />
+          </div>
+        </div>
+      );
+    }
+  
+  
