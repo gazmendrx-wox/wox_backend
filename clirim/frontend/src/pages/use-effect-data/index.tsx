@@ -17,11 +17,11 @@ export default function ProductContainer() {
   }
 
   if(loadingrRcipes) {
-    return <div>loadingCarts</div>
+    return <div>loadingrRcipes</div>
   }
 
   if(loadingUsers) {
-    return <div>loadingrRcipes</div>
+    return <div>loadingUsers</div>
   }
 
     console.log(dataUsers)
@@ -31,8 +31,8 @@ export default function ProductContainer() {
         <div className="product-container">
             <h1>Product Container</h1>
            <Data dataProducts={dataProducts} />
-           <Recipies dataRecipes={dataRecipes.recipes}/>
-           <Users  dataUsers={dataUsers.users}/>
+           <Recipies dataRecipes={dataRecipes}/>
+           <Users  dataUsers={dataUsers}/>
         </div>
     );
 }
