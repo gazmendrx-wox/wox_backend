@@ -1,43 +1,38 @@
-/**
- * DETYRA:
- * 
- * Nje page e cila shfrytezon useEffect per fetching of data nga https://dummyjson.com/docs
- * 
- * endpoint sipas zgjedhjes juaj - shembull, Products, Carts, Recipes etj
- * 
- * Kerkesa kryesore e detyres eshte demonstrimi i useEffect, edhe Atomic
- * design principles per ndarjen e komponentave.
- * 
- */
-
 import React, { useState, useEffect } from 'react';
+import '../use-effect-Homework/style.css'
+import useFetch from './useFetch';
+import Recipies from '../useEffect-data/Recipies';
 import Data from '../useEffect-data/Data';
-import './../../pages/use-effect-Homework/style.css'
-
+import Users from '../useEffect-data/Users';
 
 export default function ProductContainer() {
-    const [data, setData] = useState([]);
+  const { data: dataProducts, loading: loadingProducts } = useFetch('https://dummyjson.com/products')
+  const { data: dataRecipes, loading: loadingrRcipes } = useFetch('https://dummyjson.com/recipes')
+  const { data: dataUsers, loading: loadingUsers } = useFetch('https://dummyjson.com/users')
+  
+  
 
-    useEffect(() => {
-        const getProducts = async () => {
-          try {
-            fetch("https://dummyjson.com/products")
-              .then((res) => res.json())
-              .then((data) => setData(data));
-          } catch (error) {
-            console.error("Error to load data");
-          }
-        };
-    
-        getProducts();
-      }, []);
+  if(loadingProducts) {
+      return <div>loadingProducts</div>
+  }
 
-    console.log(data)
+  if(loadingrRcipes) {
+    return <div>loadingCarts</div>
+  }
+
+  if(loadingUsers) {
+    return <div>loadingrRcipes</div>
+  }
+
+    console.log(dataUsers)
+
 
     return (
-        <div className="product-container"> {/* Apply the CSS class */}
+        <div className="product-container">
             <h1>Product Container</h1>
-            <Data data={data} />
+           <Data data={dataProducts} />
+           <Recipies dataRecipes={dataRecipes.recipes}/>
+           <Users  dataUsers={dataUsers.users}/>
         </div>
     );
 }

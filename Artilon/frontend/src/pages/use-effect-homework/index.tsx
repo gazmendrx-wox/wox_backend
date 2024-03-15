@@ -14,6 +14,7 @@ import Recipes from "@/components/Recipes"
 import { useState , useEffect } from "react"
 import useFetch from "./useFetch";
 import UserData from "@/components/UserData";
+import CartsData from "@/components/CartsData";
 
 export default function EffectHomework(){
 
@@ -21,17 +22,16 @@ export default function EffectHomework(){
     const { data: userData , loading: userLoading } = useFetch('https://dummyjson.com/users');
     const { data: cartData , loading: cartLoading } = useFetch('https://dummyjson.com/carts');
 
-    if(recipeLoading || userLoading){
+    if(recipeLoading || userLoading || cartLoading){
         return <h1>Loading</h1>
     }
 
-    if(!recipeLoading) {
-        console.log('data....',userData)
-    }
-
     return <div>
-        <Recipes data={recipeData.recipes}/>
-        <UserData data={userData.users} />
+        <CartsData data={cartData}/>
+        <UserData data={userData} />
+        <Recipes data={recipeData}/>
+        
+
         
     </div>
 }

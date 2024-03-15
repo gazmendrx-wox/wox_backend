@@ -36,37 +36,37 @@ import { useState } from "react"
 import PersonalDetails from "@/components/PersonalDetails"
 import Vendbanim from "@/components/Vendbanim"
 import Profesion from "@/components/Profesion"
-import { Changa_One } from "next/font/google"
 
 export default function StateHomeWork() {
-    const [name, setName] = useState('')
-    const [surname, setSurname] = useState('')
+  const [name, setName] = useState('')
+
+  const [surname, setSurname] = useState('')
 
 
-    const cities = ['Prishtinë', 'Bujanovc', 'Gjilan', 'Preshevë'];
+  const cities = ['Prishtinë', 'Bujanovc', 'Gjilan', 'Preshevë'];
 
-    const [city, setCity] = useState('');
+  const [city, setCity] = useState('');
 
-    const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
-    const options = ['Programer', 'Student', 'Praktikant'];
-
-
+  const options = ['Programer', 'Student', 'Praktikant'];
 
 
-    
-    return <>
-        <PersonalDetails fieldName='Name' text={name} changeText={setName}/>
-        <PersonalDetails fieldName='SurName' text={surname} changeText={setSurname}/>
 
-        <Vendbanim fieldName='City' selectedOption={city} options={cities} changeOption={setCity} />
 
-        <Profesion fieldName="Profesioni" changeOption={setSelectedOptions} selectedOptions={selectedOptions} options={options} />
-      {name && surname && city && selectedOptions.length > 0 &&
-        <h1> Unë jam {name} {surname} me vendbanim në {city} me Profesion:{selectedOptions}</h1>
-    
+
+  return <>
+    <PersonalDetails fieldName='Name' text={name} changeText={setName} />
+    <PersonalDetails fieldName='SurName' text={surname} changeText={setSurname} />
+
+    <Vendbanim fieldName='City' selectedOption={city} options={cities[0]} changeOption={setCity} />
+
+    <Profesion fieldName="Profesioni" changeOption={setSelectedOptions} selectedOptions={selectedOptions} options={options} />
+    {name && surname && city && selectedOptions.length > 0 &&
+      <h1> Unë jam {name} {surname} me vendbanim në {city} me Profesion:{selectedOptions}</h1>
+
 
     }
 
-    </>
+  </>
 }
