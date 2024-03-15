@@ -1,9 +1,11 @@
-import ProductsData from "./ProductsData"
-export default function CartsData({data}){
+import Carts from "./Carts"
+
+export default function CartsData({ data }) {
+
+
 
     return <>
-        <ProductsData data={data.carts} />
-
+        <Carts data={data.carts} />
     </>
 
 

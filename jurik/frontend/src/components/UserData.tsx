@@ -1,10 +1,22 @@
-import User from "./user"
+import React from "react";
+import User from "./User";
 
-export default function UserData({data}){
-    console.log({data},1)
-    return <div>
-        {
-            data.users.map((user) => <User id={user.id} firstname={user.firstName} lastname={user.lastName}/>)
-        }
-    </div>
+
+ export default function UserData({ data }) {
+    return (
+        <div>
+            {data.users.map((user) => (
+                <User
+                    key={user.id}
+                    id={user.id}
+                    firstname={user.firstName}
+                    lastname={user.lastName}
+                    address={user.address}
+                    hairColor={user.hair.color}
+                    jobTitle={user.company.title}
+                />
+            ))}
+        </div>
+    );
 }
+
