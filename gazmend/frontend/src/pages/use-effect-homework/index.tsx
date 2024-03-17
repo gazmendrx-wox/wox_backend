@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useFetch from "./useFetch";
+import useFetch from "../../hooks/useFetch";
 
 /**
  * DETYRA:
@@ -13,7 +13,7 @@ import useFetch from "./useFetch";
  * 
  */
 export default function EffectHomework() {
-    const { data, loading } = useFetch("https://dummyjson.com/products")
+    const { data, loading } = useFetch("http://localhost:3001/reviews")
 
     if(loading) {
         console.log('loading...')
