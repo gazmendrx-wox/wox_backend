@@ -1,4 +1,6 @@
+"use client"
 import useFetch from "@/hooks/useFetch"
+
 
 export default function Home(){
     const { loading, data } = useFetch('http://localhost:3001/reviews')
