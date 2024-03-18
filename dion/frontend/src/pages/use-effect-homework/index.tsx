@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
-import Link from "next/link";
 
 /**
  * DETYRA:
@@ -26,7 +25,6 @@ export default function EffectHomework() {
       
 
     return <div>
-        <h1>1. [Review] - created: [created_at]</h1>
-        <Link href='/reviews'>Go to Reviews</Link>
+        <h1>Epic Homework for UseEffect</h1>
     </div>
 }

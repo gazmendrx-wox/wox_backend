@@ -20,7 +20,7 @@ CREATE TABLE public.reviews
     id bigserial NOT NULL,
     value text NOT NULL,
     created_at date NOT NULL DEFAULT CURRENT_DATE,
-    modife_at date NOT NULL,
+    modified_at date,
     PRIMARY KEY (id)
 );
 
