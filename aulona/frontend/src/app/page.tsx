@@ -1,43 +1,95 @@
-"use client";
+import Image from "next/image";
+import styles from "./page.module.css";
 
-import Person from "@/components/Person";
-import Course from "@/components/Course";
-
-const persons = [
-  { id: 1, name: "Gazmend", city: "Prishtina" },
-  { id: 2, name: "Aulona", city: "Prishtina" },
-  { id: 3, name: "Artilon", city: "Prishtina" },
-  { id: 4, name: "Edon", city: "Bujanovc" },
-  { id: 5, name: "Clirim", city: "Terrnovc" },
-];
-/**
- * Detyra:
- *
- * Krijo nje komponent te ri, per Courses, i cili liston nga nje array const courses = [],
- * nje object course, ka atributet id, name, length_of_weeks
- *
- * Me shfaq Course: [name] - has lasted [length_of_weeks]
- */
-const courses = [
-  { id: 6, name: "HTML", length_of_weeks: "1 week" },
-  { id: 7, name: "CSS", length_of_weeks: "2 weeks" },
-  { id: 8, name: "JS", length_of_weeks: "3 weeks" },
-  { id: 9, name: "Trello", length_of_weeks: "4 weeks" },
-  { id: 10, name: "GIT", length_of_weeks: "5 weeks" },
-];
 export default function Home() {
   return (
-    <>
-      {persons.map((person) => (
-        <Person key={person.id} name={person.name} />
-      ))}
-      {courses.map((course) => (
-        <Course
-          key={course.id}
-          name={course.name}
-          lengthOfWeeks={course.length_of_weeks}
+    <main className={styles.main}>
+      <div className={styles.description}>
+        <p>
+          Get started by editing&nbsp;
+          <code className={styles.code}>src/app/page.tsx</code>
+        </p>
+        <div>
+          <a
+            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            By{" "}
+            <Image
+              src="/vercel.svg"
+              alt="Vercel Logo"
+              className={styles.vercelLogo}
+              width={100}
+              height={24}
+              priority
+            />
+          </a>
+        </div>
+      </div>
+
+      <div className={styles.center}>
+        <Image
+          className={styles.logo}
+          src="/next.svg"
+          alt="Next.js Logo"
+          width={180}
+          height={37}
+          priority
         />
-      ))}
-    </>
+      </div>
+
+      <div className={styles.grid}>
+        <a
+          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Docs <span>-&gt;</span>
+          </h2>
+          <p>Find in-depth information about Next.js features and API.</p>
+        </a>
+
+        <a
+          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Learn <span>-&gt;</span>
+          </h2>
+          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
+        </a>
+
+        <a
+          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Templates <span>-&gt;</span>
+          </h2>
+          <p>Explore starter templates for Next.js.</p>
+        </a>
+
+        <a
+          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Deploy <span>-&gt;</span>
+          </h2>
+          <p>
+            Instantly deploy your Next.js site to a shareable URL with Vercel.
+          </p>
+        </a>
+      </div>
+    </main>
   );
 }
