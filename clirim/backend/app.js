@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use(cors()); //app.use(cors({ origin: ['http://frontend1.com', 'http://frontend2.com'] })); for restricting access
 
 
+
 const pool = new Pool({
   user: "root",
   host: "postgres",
