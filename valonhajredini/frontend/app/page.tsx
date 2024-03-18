@@ -1,5 +1,6 @@
 "use client"
 import useFetch from "@/hooks/useFetch"
+import React from "react"
 
 
 export default function Home(){
@@ -7,7 +8,15 @@ export default function Home(){
     if(!loading){
         console.log(data)
     }
-    return<>
-    <h1>Hello world</h1>
-    </>
+
+    if(loading){
+        return <h1>loading</h1>
+    }
+    return (
+        <ol>
+          {data.map(item => (
+            <li key={item.id}>This review " {item.value} " is created at : {item.created_at}</li>
+          ))}
+        </ol>
+      );
 }
