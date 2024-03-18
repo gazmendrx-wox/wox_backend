@@ -1,8 +1,17 @@
 'use client'
  
-import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/router';
 
-export default function ReviewById({params}){
+export default function ReviewById(){
 
-    return <h1>Hello I am ID: {params.id}</h1>
+    /**
+     * Detyra: 
+     * 
+     * nje request ne backend me marr Review by ID;
+     * 
+     */
+    const router = useRouter();
+    const { id } = router.query;
+    
+    return <h1>Review by ID: {id} - Value: [text]</h1>
 }
