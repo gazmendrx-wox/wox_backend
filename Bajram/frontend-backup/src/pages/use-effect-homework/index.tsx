@@ -21,7 +21,7 @@ export default function MyApp(){
     const {data : RecipesData, loading : RecipesLoading} = useFetch('https://dummyjson.com/recipes')
     const { data: Userdata , loading: userLoading} = useFetch('https://dummyjson.com/users')
 
-
+    console.log(RecipesData, "data")
 
 if(ProductsLoading || RecipesLoading || userLoading){
     return <h1> Loading</h1>
