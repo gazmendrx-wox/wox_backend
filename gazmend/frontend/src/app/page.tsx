@@ -1,6 +1,7 @@
 "use client"
 
 import Person from "@/components/Person"
+import Link from "next/link";
 
 /**
  * Component = Function
@@ -44,5 +45,6 @@ export default function Home() {
     }
     <p>Hello i Am a Paragraph;</p>
     <h3>I am an epic mix of HTML AND {javascript}</h3>
+    <Link href='/reviews'>Go to Reviews</Link>
   </>
 }
