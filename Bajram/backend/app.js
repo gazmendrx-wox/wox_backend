@@ -9,6 +9,7 @@ const port = 3001;
 
 app.use(bodyParser.json());
 app.use(cors());
+
 const pool = new Pool({
   user: "root",
   host: "postgres",
