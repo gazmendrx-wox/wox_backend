@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
+import Link from "next/link";
 
 /**
  * DETYRA:
@@ -16,7 +17,9 @@ export default function EffectHomework() {
     const { data, loading } = useFetch("http://localhost:3001/reviews")
 
     if(loading) {
-        console.log('loading...')
+        return <>
+        <h1>Loading</h1>
+        </>
     }
 
     if(!loading){
@@ -25,6 +28,8 @@ export default function EffectHomework() {
       
 
     return <div>
-        <h1>Epic Homework for UseEffect</h1>
+        <h1>{data.map(item =>(
+            <Link href={'/reviews'}><h2>{item.value}-created:{item.created_at} </h2></Link>
+        ))}</h1>
     </div>
 }
