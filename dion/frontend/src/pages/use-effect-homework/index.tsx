@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import Link from "next/link";
+import Reviewdata from "@/components/Reviewdata";
 
 /**
  * DETYRA:
@@ -22,14 +23,8 @@ export default function EffectHomework() {
         </>
     }
 
-    if(!loading){
-        console.log('data...', data)
-    }
-      
-
     return <div>
-        <h1>{data.map(item =>(
-            <Link href={'/reviews'}><h2>{item.value}-created:{item.created_at} </h2></Link>
-        ))}</h1>
+        <Reviewdata data={data}></Reviewdata>
+       
     </div>
 }

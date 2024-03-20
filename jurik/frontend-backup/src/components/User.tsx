@@ -21,7 +21,7 @@ const labelStyles = {
 function UserCard({ id, firstname, lastname, address, hairColor, jobTitle }) {
     return (
         <div style={userCardStyles} key={id}>
-            <div style={labelStyles}>Emri:</div>
+            <div style={labelStyles}>Full Name:</div>
             <div>{firstname} {lastname}</div>
             <div style={labelStyles}>Address:</div>
             <div><Address {...address} /></div>
