@@ -299,3 +299,31 @@ app.get("/reviews", async (req, res) => {
     client.release();
   }
 });
+
+app.get("/review/:id", async (req, res) => {
+  const { id } = req.params;
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(
+      `SELECT * FROM public.reviews where id='${id}'`
+    );
+
+    // Commit the transaction
+    await client.query("COMMIT");
+
+    //const newUser = result;
+    res.json(result.rows[0]);
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query("ROLLBACK");
+
+    console.error("Error getting review:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
+});
