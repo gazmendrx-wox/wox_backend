@@ -1,12 +1,10 @@
-import useDynamicFetch from "@/hooks/useDynamicFetch";
-import useFetchPost from "@/hooks/useDynamicFetch";
+import { dynamicFetch } from "@/helpers/dynamicFetch";
 import { useState } from "react"
 
 export default function CreateReview() {
 
     const [reviewValue, setReviewValue] = useState('')
-    const { data, handleSubmitForm } = useDynamicFetch('http://localhost:3001/review/create')
-
+    
     const handleInputChange = (e) => {
 
         // //classic way (old)
@@ -18,14 +16,14 @@ export default function CreateReview() {
         setReviewValue(value)
     }
 
-    const handleAddReview = () => {
+    const handleAddReview = async () => {
         //will handle creation of review
         const postData = {
             value: reviewValue
         }
 
-        handleSubmitForm(postData, 'POST')
-        //handleSubmitForm(postData, 'PUT') per update
+        const response = await dynamicFetch('http://localhost:3001/review/create', 'POST', postData)
+        console.log(response)
     }
 
     return <>
