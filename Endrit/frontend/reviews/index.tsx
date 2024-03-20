@@ -1,5 +1,5 @@
-import ListOfReviews from "@/pages/Components/ListOfReviews";
-import useFetch from "@/pages/hooks/useFetch";
+import ListOfReviews from "../components/ListOfReviews";
+import useFetch from "../hooks/useFetch";
 
 export default function Review() {
   const { data: listOfReviewsData, loading } = useFetch(

@@ -1,5 +1,5 @@
-import ReviewDetails from "@/pages/Components/ReviewDetails";
-import useFetch from "@/pages/hooks/useFetch";
+import ReviewDetails from "../../components/ReviewDetails";
+import useFetch from "../../hooks/useFetch";
 import { useRouter } from "next/router";
 
 const ReviewDetailsPage = () => {
