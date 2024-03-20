@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export default function useFetchPost(url) {
+export default function useDynamicFetch(url) {
     const [data, setData] = useState(null);
 
-    const handleSubmitForm = async (postData) => {
+    const handleSubmitForm = async (postData, method) => {
       try {
         fetch(url, {
-          method: 'POST',
+          method,
           headers: {
             "Content-Type": "application/json"
           },
