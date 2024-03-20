@@ -16,7 +16,7 @@ const courses = [
   { id: 4, name: "ReactJS + NextJS", length_of_weeks: "2 weeks" },
 ];
 
-export default function HomeOne() {
+export default function Home() {
   return (
     <>
       {persons.map((person) => (
@@ -31,9 +31,3 @@ export default function HomeOne() {
   );
       }
 
-export default function Home() {
-  return <>
-    <p>List of Reviews</p>
-    <p>value - has been created: [created_at] and is Not modified if modified_at is null</p> 
-  </>
-}
