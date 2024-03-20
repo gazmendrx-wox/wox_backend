@@ -27,6 +27,6 @@ export default function EffectHomework() {
 
     return <div>
         <h1>1. [Review] - created: [created_at]</h1>
-        <Link href='/reviews'>Go to Reviews</Link>
+        <Link href='/reviews'>Go to Reviews</Link> 
     </div>
 }

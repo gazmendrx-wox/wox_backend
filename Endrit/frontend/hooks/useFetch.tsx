@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function useFetch(url: unknown) {
-
-    const [data , setData] = useState(null)
-    const [loading , setLoading] = useState(true)
+export default function useFetch(url) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const getData = async () => {
@@ -26,8 +25,6 @@ export default function useFetch(url: unknown) {
             setData(null)
         }
       }, [url]);
-      
-      return  {data , loading}
-      
-    
+
+      return { data, loading }
 }
