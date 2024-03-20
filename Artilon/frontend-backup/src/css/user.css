@@ -1,0 +1,25 @@
+
+
+.user-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .user-info {
+    font-family: Arial, sans-serif;
+  }
+  
+  .user-info p {
+    margin: 5px 0;
+  }
+  
+  .user-info strong {
+    font-weight: bold;
+  }
+  
+  .address-container {
+    margin-left: 20px; 
+    font-style: italic;
+  }
+  

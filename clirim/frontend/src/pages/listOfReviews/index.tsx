@@ -1,16 +1,20 @@
 "use client"
-
 import useFetch from "@/hooks/useFetch"
+import Link from "next/link"
 
-
-export default function Home() {
-    const {data, loading} = useFetch('https://localhost:3001/reviews')
+export default function Home(){
+    const { loading, data } = useFetch('http://localhost:3001/reviews')
     if(!loading){
         console.log(data)
     }
-
-    return <>
-        <p>list of reviews</p>
-        <p>value - has been created: [created_at] and is Not modified if ,odifiet_at is null</p>
+    if(loading){
+        return <p>loading...</p>
+    }
+    return<>
+         <h1>Hello world</h1>
+        {data.map(review => (
+            
+        <h1><Link href='/reviews'  key={review.id}> {review.id} -{review.value} created {review.created_at}</Link></h1>
+        ))}
     </>
 }

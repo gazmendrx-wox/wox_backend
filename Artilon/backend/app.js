@@ -1,5 +1,6 @@
 // backend/app.js
 const express = require('express');
+const cors = require('cors');
 const { Pool } = require('pg');
 const bodyParser = require('body-parser');
 
@@ -7,6 +8,7 @@ const app = express();
 const port = 3001;
 
 app.use(bodyParser.json());
+app.use(cors());
 
 const pool = new Pool({
   user: 'root',
@@ -267,6 +269,31 @@ app.post('/review/delete', async (req, res) => {
 
     console.error('Error creating review:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
+});
+
+app.get("/reviews", async (req, res) => {
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(`SELECT * FROM public.reviews`);
+
+    // Commit the transaction
+    await client.query("COMMIT");
+
+    //const newUser = result;
+    res.json(result.rows);
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query("ROLLBACK");
+
+    console.error("Error getting review:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   } finally {
     // Release the client back to the pool
     client.release();
