@@ -14,7 +14,7 @@ export default function Home(){
          <h1>Hello world</h1>
         {data.map(review => (
             
-        <Link href='/reviews'  key={review.id}> {review.id} -{review.value} created {review.created_at}</Link>
+        <h1><Link href='/reviews'  key={review.id}> {review.id} -{review.value} created {review.created_at}</Link></h1>
         ))}
     </>
 }
