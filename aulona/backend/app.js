@@ -1,5 +1,6 @@
 // backend/app.js
 const express = require("express");
+const cors = require('cors');
 const { Pool } = require("pg");
 const bodyParser = require("body-parser");
 
@@ -7,6 +8,7 @@ const app = express();
 const port = 3001;
 
 app.use(bodyParser.json());
+app.use(cors());
 
 const pool = new Pool({
   user: "root",
@@ -253,7 +255,7 @@ app.get("/review/:id", async (req, res) => {
     await client.query("COMMIT");
 
     //const newUser = result;
-    res.json(result.rows);
+    res.json(result.rows[0]);
   } catch (error) {
     // Rollback the transaction in case of an error
     await client.query("ROLLBACK");
