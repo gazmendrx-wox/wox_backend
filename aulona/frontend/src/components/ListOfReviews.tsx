@@ -5,7 +5,7 @@ const ListOfReviews = ({ listOfReviews }) => {
     <>
       <ul>
         {listOfReviews.map((review, index) => (
-          <li key={index}>
+          <li key={review.id}>
             <Link href={`/reviews/${review.id}`}>
               {index + 1}. {review.value} - created at{" "}
               {new Date(review.created_at).toLocaleDateString()}
