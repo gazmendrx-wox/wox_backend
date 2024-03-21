@@ -11,13 +11,7 @@ export default function Home(){
     if(loading){
         return <p>loading...</p>
     }
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        return `${day}/${month}/${year}`;
-    }
+    
     return<>
          <h1>List of Reviews</h1>
         {data.map(review => (

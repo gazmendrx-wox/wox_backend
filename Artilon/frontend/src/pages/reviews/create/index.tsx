@@ -1,23 +1,21 @@
-import useDynamicPost from "@/hooks/useDynamicPost";
-import useFetchPost from "@/hooks/useDynamicPost";
+import { dynamicFetch } from "@/helpers/dynamicFetch";
 import { useState } from "react";
 
 export default function Home(){
 
     const [ reviewValue, setReviewValue] = useState('')
-    const { data , handleSubmitForm } = useDynamicPost('http://localhost:3001/review/create')
 
     const handleInputChange = (e) => {
         const {value} = e.target;
         setReviewValue(value)
     }
-    const handleAddReview = () => {
+    const handleAddReview = async () => {
         const postData = {
             value : reviewValue
         }
+        const response = await dynamicFetch('http://localhost:3001/review/create', 'POST', postData)
+        console.log(response)
 
-        handleSubmitForm(postData , 'POST')
-        console.log(data)
     }
     
     return<div>
@@ -29,4 +27,8 @@ export default function Home(){
         </form>
 
     </div>
+}
+
+function useDynamicPost(arg0: string): { data: any; handleSubmitForm: any; } {
+    throw new Error("Function not implemented.");
 }

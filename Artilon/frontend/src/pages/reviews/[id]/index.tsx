@@ -1,6 +1,6 @@
 "use client"
 import DateComponent from "@/components/DateComponent";
-import useDynamicPost from "@/hooks/useDynamicPost";
+import { dynamicFetch } from "@/helpers/dynamicFetch";
 import useFetch from "@/hooks/useFetch"
 import Link from "next/link"
 import { useRouter } from "next/router";
@@ -13,8 +13,6 @@ export default function Home(){
     const { loading, data } = useFetch(id ? `http://localhost:3001/review/${id}` : null);
 
     const [ newValue, setNewValue] = useState('')
-
-    const { handleSubmitForm } = useDynamicPost('http://localhost:3001/review/update');
     
 
     if(!loading){
@@ -28,14 +26,22 @@ export default function Home(){
         const {value} = e.target;
         setNewValue(value)
     }
-    const handleUpdateReview = () => {
+    const handleUpdateReview = async () => {
         const postData = {
             id : id,
             value : newValue
         }
+        const response = await dynamicFetch('http://localhost:3001/review/update', 'POST', postData)
+        console.log(response)
 
-        handleSubmitForm(postData , 'POST')
-        console.log(data)
+    }
+    const handleDeleteReview = async () => {
+        const postData = {
+            id : id,
+        }
+        const response = await dynamicFetch('http://localhost:3001/review/delete', 'POST', postData)
+        console.log(response)
+
     }
     return<>
         <h1>List of Reviews</h1>
@@ -45,6 +51,10 @@ export default function Home(){
             <input type="text" value={newValue} onChange={handleInputChange}/>   
             <button type="button" onClick={handleUpdateReview}>Update Review</button>
         </form>
+        <form>
+        <button type="button" onClick={handleDeleteReview}>Delete Review</button>
+        </form>
         
     </>
 }
+
