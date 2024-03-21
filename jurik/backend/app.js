@@ -1,12 +1,14 @@
 // backend/app.js
 const express = require('express');
 const { Pool } = require('pg');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3001;
 
 app.use(bodyParser.json());
+app.use(cors());
 
 const pool = new Pool({
   user: 'root',
@@ -18,11 +20,11 @@ const pool = new Pool({
 
 
 app.get('/', async (req, res) => {
-    res.send('Hello to main route.');
+  res.send('Hello to main route.');
 });
 
-app.get('/user/:columnName/:value', async (req,res) => {
-  
+app.get('/user/:columnName/:value', async (req, res) => {
+
   const { columnName, value } = req.params;
 
   // Start a transaction
@@ -59,34 +61,34 @@ app.listen(port, () => {
 });
 
 app.post('/user/create', async (req, res) => {
-    const { name, email, password } = req.body;
+  const { name, email, password } = req.body;
 
-    // Start a transaction
-    const client = await pool.connect();
-    try {
-      await client.query('BEGIN');
-  
-      // Use a parameterized query to prevent SQL injection
-      const result = await client.query(
-        'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id,name,email',
-        [name, email, password]
-      );
-  
-      // Commit the transaction
-      await client.query('COMMIT');
-  
-      const newUser = result.rows[0];
-      res.json(newUser);
-    } catch (error) {
-      // Rollback the transaction in case of an error
-      await client.query('ROLLBACK');
-  
-      console.error('Error creating user:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    } finally {
-      // Release the client back to the pool
-      client.release();
-    }
+  // Start a transaction
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(
+      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id,name,email',
+      [name, email, password]
+    );
+
+    // Commit the transaction
+    await client.query('COMMIT');
+
+    const newUser = result.rows[0];
+    res.json(newUser);
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query('ROLLBACK');
+
+    console.error('Error creating user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
 });
 
 app.post('/user/update', async (req, res) => {
@@ -99,10 +101,10 @@ app.post('/user/update', async (req, res) => {
 
     // Use a parameterized query to prevent SQL injection
     const result = await client.query(
-     `UPDATE public.users
+      `UPDATE public.users
      SET  name='${name}'
      WHERE id=${id} RETURNING name, id;`
-     
+
     );
 
     // Commit the transaction
@@ -132,9 +134,9 @@ app.delete('/user/delete', async (req, res) => {
 
     // Use a parameterized query to prevent SQL injection
     const result = await client.query(
-     `DELETE from public.users
+      `DELETE from public.users
      WHERE id=${id} RETURNING name, id;`
-     
+
     );
 
     // Commit the transaction
@@ -155,8 +157,8 @@ app.delete('/user/delete', async (req, res) => {
 });
 
 
-//REVIEW
-app.get('/reviews', async (req,res) => {
+//REVIEWS
+app.get('/reviews', async (req, res) => {
 
 
   // Start a transaction
@@ -167,7 +169,7 @@ app.get('/reviews', async (req,res) => {
     // Use a parameterized query to prevent SQL injection
     const result = await client.query(
       `SELECT * FROM public.reviews `
-      
+
     );
 
     // Commit the transaction
@@ -199,7 +201,7 @@ app.post('/review/create', async (req, res) => {
     // Use a parameterized query to prevent SQL injection
     const result = await client.query(
       'INSERT INTO reviews (value) VALUES ($1) RETURNING id,value',
-      [ value]
+      [value]
     );
 
     // Commit the transaction
@@ -219,7 +221,7 @@ app.post('/review/create', async (req, res) => {
   }
 });
 
-app.post('/review/update', async (req, res) => {
+app.put('/review/update', async (req, res) => {
   const { id, value } = req.body;
 
   // Start a transaction
@@ -229,10 +231,10 @@ app.post('/review/update', async (req, res) => {
 
     // Use a parameterized query to prevent SQL injection
     const result = await client.query(
-     `UPDATE public.reviews
+      `UPDATE public.reviews
      SET  value='${value}'
      WHERE id=${id} RETURNING value, id;`
-     
+
     );
 
     // Commit the transaction
@@ -262,9 +264,9 @@ app.delete('/review/delete', async (req, res) => {
 
     // Use a parameterized query to prevent SQL injection
     const result = await client.query(
-     `DELETE from public.reviews
+      `DELETE from public.reviews
      WHERE id=${id} RETURNING value, id;`
-     
+
     );
 
     // Commit the transaction
@@ -278,6 +280,34 @@ app.delete('/review/delete', async (req, res) => {
 
     console.error('Error creating review:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
+});
+
+app.get("/review/:id", async (req, res) => {
+  const { id } = req.params;
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(
+      `SELECT * FROM public.reviews where id='${id}'`
+    );
+
+    // Commit the transaction
+    await client.query("COMMIT");
+
+    //const newUser = result;
+    res.json(result.rows[0]);
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query("ROLLBACK");
+
+    console.error("Error getting review:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   } finally {
     // Release the client back to the pool
     client.release();

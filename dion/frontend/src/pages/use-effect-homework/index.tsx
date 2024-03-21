@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
+import Link from "next/link";
+import Reviewdata from "@/components/Reviewdata";
 
 /**
  * DETYRA:
@@ -16,15 +18,13 @@ export default function EffectHomework() {
     const { data, loading } = useFetch("http://localhost:3001/reviews")
 
     if(loading) {
-        console.log('loading...')
+        return <>
+        <h1>Loading</h1>
+        </>
     }
-
-    if(!loading){
-        console.log('data...', data)
-    }
-      
 
     return <div>
-        <h1>Epic Homework for UseEffect</h1>
+        <Reviewdata data={data}></Reviewdata>
+       
     </div>
 }
