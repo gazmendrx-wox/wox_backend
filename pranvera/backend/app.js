@@ -1,5 +1,6 @@
 // backend/app.js
 const express = require("express");
+const cors = require('cors');
 const { Pool } = require("pg");
 const bodyParser = require("body-parser");
 
@@ -7,7 +8,7 @@ const app = express();
 const port = 3001;
 
 app.use(bodyParser.json());
-
+app.use(cors()); //app.use(cors({ origin: ['http://frontend1.com', 'http://frontend2.com'] })); for restricting access
 const pool = new Pool({
   user: "root",
   host: "postgres",
