@@ -21,6 +21,7 @@ export default function useFetch(url) {
     
         getData();
 
+        //clean up function
         return () => {
             setData(null)
         }

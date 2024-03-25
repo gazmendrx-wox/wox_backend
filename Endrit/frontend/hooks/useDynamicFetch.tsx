@@ -3,14 +3,15 @@ import { useState } from "react";
 export default function useDynamicFetch(url) {
   const [data, setData] = useState(null);
 
-  const handleSubmitForm = async (postData, method) => {
+
+  const handleSubmitForm= async (postData, method) => {
     try {
       fetch(url, {
-        method: method,
+        method,
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(postData),
+        body: JSON.stringify(postData)
       })
         .then((res) => res.json())
         .then((data) => {
@@ -18,9 +19,10 @@ export default function useDynamicFetch(url) {
         });
     } catch (error) {
       console.error("Error to load data");
-      setData(null);
+      setData(null)
     }
   };
 
-  return { data, handleSubmitForm };
+    return {data, handleSubmitForm}
+
 }

@@ -4,11 +4,11 @@ const ListOfReviews = ({ listOfReviews }) => {
   return (
     <>
       <ul>
-        {listOfReviews.map((review) => (
-          <li key={review.id}>
-            <Link href={`/reviews/${review.id}`}>
-              {+ 1}. {review.value} - created at{" "}
-              {new Date(review.created_at).toLocaleDateString()}
+        {listOfReviews.map((data, index) => (
+          <li key={data.id}>
+            <Link href={`/reviews/${data.id}`}>
+              {index + 1}. {data.value} - created at{" "}
+              {new Date(data.created_at).toLocaleDateString()}
             </Link>
           </li>
         ))}

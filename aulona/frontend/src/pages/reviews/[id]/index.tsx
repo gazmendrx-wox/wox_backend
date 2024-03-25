@@ -1,5 +1,5 @@
 import ReviewDetails from "@/components/ReviewDetails";
-import useDynamicFetch from "@/hooks/useDynamicFetch";
+import { dynamicFetch } from "@/helpers/dynamicFetch";
 import useFetch from "@/hooks/useFetch";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -14,29 +14,42 @@ const ReviewDetailsPage = () => {
     `http://localhost:3001/review/${id}`
   );
 
-  const { data, handleSubmitForm } = useDynamicFetch(
-    "http://localhost:3001/review/update"
-  );
-
   const handleInputChange = (event) => {
     const { value } = event.target;
     setReviewUpdatedValue(value);
   };
 
-  const handleUpdateReview = () => {
-    event?.preventDefault();
+  const handleUpdateReview = async () => {
     console.log("Review:", reviewUpdatedValue);
-    const postData = {
+    const putData = {
       id: id,
       value: reviewUpdatedValue,
     };
 
-    handleSubmitForm(postData, "PUT");
+    const response = await dynamicFetch(
+      "http://localhost:3001/review/update",
+      "PUT",
+      putData
+    );
+
+    console.log(response);
   };
 
-  // if (!loading) {
-  //   console.log(reviewDetailsData);
-  // }
+  const handleDeleteReview = async () => {
+    const deleteData = {
+      id: id,
+    };
+
+    const response = await dynamicFetch(
+      "http://localhost:3001/review/delete",
+      "DELETE",
+      deleteData
+    );
+
+    if (response) {
+      router.push("/reviews");
+    }
+  };
 
   return (
     <>
@@ -57,6 +70,11 @@ const ReviewDetailsPage = () => {
             </div>
             <div>
               <button type="submit">Change Review</button>
+            </div>
+            <div>
+              <button type="button" onClick={handleDeleteReview}>
+                Delete Review
+              </button>
             </div>
           </form>
         </>
