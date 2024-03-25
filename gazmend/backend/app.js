@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require('cors');
 const { Pool } = require("pg");
 const bodyParser = require("body-parser");
+const bcrypt = require('bcryptjs');
 
 const app = express();
 const port = 3001;
@@ -58,6 +59,9 @@ app.listen(port, () => {
 app.post("/user/create", async (req, res) => {
   const { name, email, password } = req.body;
 
+  const salt = bcrypt.genSaltSync(10)
+  const encryptedPassword = bcrypt.hashSync(password, salt);
+
   // Start a transaction
   const client = await pool.connect();
   try {
@@ -66,7 +70,7 @@ app.post("/user/create", async (req, res) => {
     // Use a parameterized query to prevent SQL injection
     const result = await client.query(
       "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id,name,email",
-      [name, email, password]
+      [name, email, encryptedPassword]
     );
 
     // Commit the transaction
