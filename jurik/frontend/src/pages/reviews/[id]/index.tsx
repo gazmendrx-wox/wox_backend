@@ -1,40 +1,56 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import useFetch from '@/hooks/useFetch';
-import FormattedDate from '@/components/FormattedData';
-import useDynamicFetch from '@/hooks/useDynamicFetch';
-export default function Review() {
+"use client"
+import { dynamicFetch } from "@/helpers/dynamicFetch";
+import FormattedDate from "@/components/FormattedData";
+import useFetch from "@/hooks/useFetch"
+import Link from "next/link"
+import { useRouter } from "next/router";
+import { useState } from "react";
+
+export default function Home(){
     const router = useRouter();
     const { id } = router.query;
 
-    const { data, loading } = useFetch(`http://localhost:3001/review/${id}`);
-    const { handleSubmitForm } = useDynamicFetch(`http://localhost:3001/review/update`);
+    const { loading, data } = useFetch(id ? `http://localhost:3001/review/${id}` : null);
 
-    const [newValue, setNewValue] = useState('');
+    const [ newValue, setNewValue] = useState('')
+    
 
+  
+    if(loading){
+        return <p>loading...</p>
+    }
+    
     const handleInputChange = (e) => {
-        setNewValue(e.target.value);
-    };
-
-    const handleUpdateValue = () => {
+        const {value} = e.target;
+        setNewValue(value)
+    }
+    const handleUpdateReview = async () => {
         const postData = {
             id : id,
-            value: newValue
+            value : newValue
         }
-        handleSubmitForm(postData, 'PUT');
+        const response = await dynamicFetch('http://localhost:3001/review/update', 'PUT', postData)
+        console.log(response)
 
-        setNewValue("")
-    };
-
-    if (loading) {
-        return <h1>Loading</h1>;
     }
+    const handleDeleteReview = async () => {
+        const postData = {
+            id : id,
+        }
+        const response = await dynamicFetch('http://localhost:3001/review/delete', 'DELETE', postData)
+        console.log(response)
 
-    return (
-        <div>
-            <h3>{data.id}-{data.value} created <FormattedDate dateString={data.created_at} /></h3>
-            <input type="text" value={newValue} onChange={handleInputChange} />
-            <button onClick={handleUpdateValue}>Update Value</button>
-        </div>
-    );
+    }
+    return<>
+       
+        <h3> <Link href='/reviews'> {data.id} -{data.value} created <FormattedDate dateString={data.created_at}/></Link></h3>
+       <Link href='/'> <button type="button" onClick={handleDeleteReview}>Delete Review</button><br></br><br></br></Link>
+        <form>
+            <input type="text" value={newValue} onChange={handleInputChange}/>   
+            <button type="button" onClick={handleUpdateReview}>Update Review</button>   
+           
+        </form>
+  
+    </>
 }
+

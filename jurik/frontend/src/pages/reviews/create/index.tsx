@@ -1,40 +1,33 @@
+import { dynamicFetch } from "@/helpers/dynamicFetch";
+import { useState } from "react"
 
-import { useRouter } from 'next/router';
-import useFetch from "@/hooks/useFetch";
-import { useState } from 'react';
-import useFetchPost from '@/hooks/useDynamicFetch';
+export default function CreateReview() {
 
-
-export default function Review() {
-
-    const [ reviewValue, setReviewValue] = useState();
-    const {data, handleSubmitForm} = useFetchPost("http://localhost:3001/review/create")
-
+    const [reviewValue, setReviewValue] = useState('')
+    
     const handleInputChange = (e) => {
-        const {value} = e.target;
+
+     
+
+        const { value } = e.target; 
         setReviewValue(value)
     }
 
-    const handleAddreview = () => {
+    const handleAddReview = async () => {
         const postData = {
             value: reviewValue
         }
 
-
-        handleSubmitForm(postData, "POST")
-        console.log(data)
+        const response = await dynamicFetch('http://localhost:3001/review/create', 'POST', postData)
+        console.log(response)
     }
- 
-    
     return <>
-<form>
-    <input type='text' name='value' value={reviewValue} onChange={handleInputChange} placeholder='Enter a riview'></input>
-    <button type='button' onClick={handleAddreview}>Add riview</button>
-</form>
+        <form>
+            <br></br>
+            <h2> Krijo nje review</h2>
+            <input type="text" name="value" value={reviewValue} onChange={handleInputChange} placeholder="Enter a review" />
+            <button type="button" onClick={handleAddReview}>Add Review</button>
+        </form>
     </>
 
-    
-
 }
-
-
