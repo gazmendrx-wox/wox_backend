@@ -307,7 +307,7 @@ app.get("/reviews", async (req, res) => {
   }
 });
 
-app.get("/reviews/:id", async (req, res) => {
+app.get("/review/:id", async (req, res) => {
   const { id } = req.params;
   const client = await pool.connect();
   try {
@@ -315,14 +315,14 @@ app.get("/reviews/:id", async (req, res) => {
 
     // Use a parameterized query to prevent SQL injection
     const result = await client.query(
-      `SELECT * FROM public.reviews where id='${id}'`
+      `SELECT * FROM public.reviews where id=${id}`
     );
 
     // Commit the transaction
     await client.query("COMMIT");
 
     //const newUser = result;
-    res.json(result.rows);
+    res.json(result.rows[0]);
   } catch (error) {
     // Rollback the transaction in case of an error
     await client.query("ROLLBACK");
