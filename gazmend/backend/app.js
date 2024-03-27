@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require('cors');
 const { Pool } = require("pg");
 const bodyParser = require("body-parser");
+const bcrypt = require('bcryptjs');
 
 const app = express();
 const port = 3001;
@@ -51,12 +52,46 @@ app.get("/user/:columnName/:name", async (req, res) => {
   }
 });
 
+app.post("/authenticate", async (req, res) => {
+  const { email, password } = req.body;
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(
+      "SELECT id, name, email, password, created_at, modified_at FROM public.users where email= $1", [email]
+    );
+
+    console.log('result', result)
+    // Commit the transaction
+    await client.query("COMMIT");
+    const userByEmail = result.rows[0]
+    
+    //verify hash with bcryptjs, if true return authenticated: true, if false, return authenticated: false
+    
+    res.json(userByEmail);
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query("ROLLBACK");
+
+    console.error("Error getting user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
 app.post("/user/create", async (req, res) => {
   const { name, email, password } = req.body;
+
+  const salt = bcrypt.genSaltSync(10)
+  const encryptedPassword = bcrypt.hashSync(password, salt);
 
   // Start a transaction
   const client = await pool.connect();
@@ -66,7 +101,7 @@ app.post("/user/create", async (req, res) => {
     // Use a parameterized query to prevent SQL injection
     const result = await client.query(
       "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id,name,email",
-      [name, email, password]
+      [name, email, encryptedPassword]
     );
 
     // Commit the transaction

@@ -1,10 +1,10 @@
 import { useState } from "react"
-import useFetchPost from "../../../hooks/useFetchPost";
+import useDynamicFetch from "../../../hooks/useDynamicFetch";
 
 export default function createFrom() {
 
     const [reviewValue, setReviewValue] = useState ('')
-    const { data,  handleSubmitForm } = useFetchPost('http://localhost:3001/review/create')
+    const { data,  handleSubmitForm } = useDynamicFetch('http://localhost:3001/review/create')
     const handleInputChange = (e) => {
         const { value } = e.target; 
         setReviewValue(value)
@@ -12,10 +12,10 @@ export default function createFrom() {
     const handleAddReview = () => {
         //will hanlde creation of review
         const postData = {
-            value: 'vlera e inputit per review'
+            value: reviewValue
         }
         
-        handleSubmitForm(postData)
+        handleSubmitForm(postData, 'POST')
         console.log(data)
     }
    return<>

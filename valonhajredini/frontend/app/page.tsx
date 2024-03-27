@@ -8,14 +8,13 @@ export default function Home(){
     if(!loading){
         console.log(data)
     }
-
     if(loading){
         return <h1>loading</h1>
     }
     return <div>
         <ol>
           {data.map(item => (
-            <li key={item.id}>This review " {item.value} " is created at : {item.created_at} <b><Link href='./reviews'>Go to reviews</Link></b></li>
+            <li key={item.id}>This review " {item.value} " is created at : {item.created_at} <b><Link href={`./reviews/${item.id}`}>Go to review</Link></b></li>
           ))}
         
         </ol>

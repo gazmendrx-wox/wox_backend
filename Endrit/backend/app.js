@@ -181,7 +181,7 @@ app.post("/review/create", async (req, res) => {
   }
 });
 
-app.post("/review/update", async (req, res) => {
+app.put("/review/update", async (req, res) => {
   const { id, value } = req.body;
 
   // Start a transaction
