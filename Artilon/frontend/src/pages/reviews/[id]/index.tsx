@@ -6,7 +6,7 @@ import Link from "next/link"
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function Home(){
+export default function ReviewsByID(){
     const router = useRouter();
     const { id } = router.query;
 
@@ -31,7 +31,7 @@ export default function Home(){
             id : id,
             value : newValue
         }
-        const response = await dynamicFetch('http://localhost:3001/review/update', 'POST', postData)
+        const response = await dynamicFetch('http://localhost:3001/review/update', 'PUT', postData)
         console.log(response)
 
     }
@@ -39,7 +39,7 @@ export default function Home(){
         const postData = {
             id : id,
         }
-        const response = await dynamicFetch('http://localhost:3001/review/delete', 'POST', postData)
+        const response = await dynamicFetch('http://localhost:3001/review/delete', 'PUT', postData)
         console.log(response)
 
     }
@@ -50,9 +50,7 @@ export default function Home(){
         <form>
             <input type="text" value={newValue} onChange={handleInputChange}/>   
             <button type="button" onClick={handleUpdateReview}>Update Review</button>
-        </form>
-        <form>
-        <button type="button" onClick={handleDeleteReview}>Delete Review</button>
+            <Link href='/reviews'><button type="button" onClick={handleDeleteReview}>Delete Review</button></Link>
         </form>
         
     </>

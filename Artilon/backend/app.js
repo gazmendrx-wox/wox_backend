@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 const port = 3001;
@@ -22,6 +23,45 @@ const pool = new Pool({
 app.get('/', async (req, res) => {
     res.send('Hello to main route.');
 });
+
+app.get('/authenticate', async (req,res) => {
+  
+  const { email, password } = req.body;
+  const client = await pool.connect();
+
+  try {
+    await client.query('BEGIN');
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(
+      `SELECT id, name, email, password, created_at, modified_at FROM public.users WHERE email= $1`,[email]
+    );
+
+    // Commit the transaction
+    await client.query('COMMIT');
+    const userByEmail = result.rows[0]
+    
+    const passwordMatch = bcrypt.compareSync(password, userByEmail.password);
+
+    if(!passwordMatch){
+      res.json({ authenticated: false });
+      return;
+    }
+
+    res.json({ authenticated: true });
+
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query('ROLLBACK');
+
+    console.error('Error getting user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
+
+})
 
 app.get('/user/:columnName/:value', async (req,res) => {
   
@@ -56,12 +96,16 @@ app.get('/user/:columnName/:value', async (req,res) => {
 })
 
 
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
 app.post('/user/create', async (req, res) => {
     const { name, email, password } = req.body;
+
+    const salt = bcrypt.genSaltSync(10)
+    const encryptedPassword = bcrypt.hashSync(password, salt);
 
     // Start a transaction
     const client = await pool.connect();
@@ -71,7 +115,7 @@ app.post('/user/create', async (req, res) => {
       // Use a parameterized query to prevent SQL injection
       const result = await client.query(
         'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id,name,email',
-        [name, email, password]
+        [name, email, encryptedPassword]
       );
   
       // Commit the transaction
@@ -215,7 +259,7 @@ app.post('/review/create', async (req, res) => {
   }
 });
 
-app.post('/review/update', async (req, res) => {
+app.put('/review/update', async (req, res) => {
   const { id , value } = req.body;
 
   // Start a transaction
@@ -245,7 +289,7 @@ app.post('/review/update', async (req, res) => {
   }
 });
 
-app.post('/review/delete', async (req, res) => {
+app.put('/review/delete', async (req, res) => {
   const { id } = req.body;
 
   // Start a transaction

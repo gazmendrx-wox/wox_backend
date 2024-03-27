@@ -1,7 +1,7 @@
 import { dynamicFetch } from "@/helpers/dynamicFetch";
 import { useState } from "react";
 
-export default function Home(){
+export default function CreateReview(){
 
     const [ reviewValue, setReviewValue] = useState('')
 
@@ -23,12 +23,9 @@ export default function Home(){
        
         <form>
             <input type="text" name="value" value={reviewValue} onChange={handleInputChange} placeholder="Enter a review"/>   
-        <button type="button" onClick={handleAddReview}>Add Review</button>
+            <button type="button" onClick={handleAddReview}>Add Review</button>
         </form>
 
     </div>
 }
 
-function useDynamicPost(arg0: string): { data: any; handleSubmitForm: any; } {
-    throw new Error("Function not implemented.");
-}
