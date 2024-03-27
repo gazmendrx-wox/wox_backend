@@ -3,6 +3,8 @@ const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
+
 
 const app = express();
 const port = 3001;
@@ -22,6 +24,8 @@ const pool = new Pool({
 app.get('/', async (req, res) => {
   res.send('Hello to main route.');
 });
+
+
 
 app.get('/user/:columnName/:value', async (req, res) => {
 
@@ -56,12 +60,57 @@ app.get('/user/:columnName/:value', async (req, res) => {
 })
 
 
+
+app.post('/authenticate', async (req, res) => {
+  const { email, password } = req.body;
+
+  // Start a transaction
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(
+      `SELECT id, name, email, password FROM public.users WHERE email=$1`, [email]
+    );
+
+    const user = result.rows[0];
+
+    if (!user) {
+      res.json({autheticated:false});
+      return;
+    }
+
+    const passwordMatch =  bcrypt.compareSync(password, user.password);
+    if(!passwordMatch){
+      res.json({autheticated:false});
+      return;
+    }
+    await client.query('COMMIT');
+
+    res.json({autheticated:true});
+  } catch (error) {
+    await client.query('ROLLBACK');
+
+    console.error('Error getting user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    client.release();
+  }
+});
+
+
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
 app.post('/user/create', async (req, res) => {
   const { name, email, password } = req.body;
+
+
+  const salt = bcrypt.genSaltSync(10)
+  const encryptedPassword = bcrypt.hashSync(password, salt);
 
   // Start a transaction
   const client = await pool.connect();
@@ -71,7 +120,7 @@ app.post('/user/create', async (req, res) => {
     // Use a parameterized query to prevent SQL injection
     const result = await client.query(
       'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id,name,email',
-      [name, email, password]
+      [name, email, encryptedPassword]
     );
 
     // Commit the transaction
