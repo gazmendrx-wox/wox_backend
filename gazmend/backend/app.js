@@ -52,33 +52,35 @@ app.get("/user/:columnName/:name", async (req, res) => {
   }
 });
 
-app.post("/authenticate", async (req, res) => {
+app.get("/authenticate", async (req, res) => {
   const { email, password } = req.body;
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
 
-    // Use a parameterized query to prevent SQL injection
     const result = await client.query(
-      "SELECT id, name, email, password, created_at, modified_at FROM public.users where email= $1", [email]
+      `SELECT id, name, email, password FROM public.users WHERE email=$1`,
+      [email]
     );
 
-    console.log('result', result)
-    // Commit the transaction
-    await client.query("COMMIT");
-    const userByEmail = result.rows[0]
-    
-    //verify hash with bcryptjs, if true return authenticated: true, if false, return authenticated: false
-    
-    res.json(userByEmail);
-  } catch (error) {
-    // Rollback the transaction in case of an error
-    await client.query("ROLLBACK");
+    if (result.rows.length === 0) {
+      res.json({ authenticated: false });
+      return;
+    }
 
-    console.error("Error getting user:", error);
+    const user = result.rows[0];
+
+    const passwordMatch = bcrypt.compareSync(password, user.password);
+    if (!passwordMatch) {
+      res.json({ authenticated: false });
+      return;
+    }
+
+    res.json({ authenticated: true });
+  } catch (error) {
+    console.error("Error authenticating user:", error);
     res.status(500).json({ error: "Internal Server Error" });
   } finally {
-    // Release the client back to the pool
     client.release();
   }
 });
