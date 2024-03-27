@@ -52,7 +52,7 @@ app.get("/user/:columnName/:name", async (req, res) => {
   }
 });
 
-app.get("/authenticate", async (req, res) => {
+app.post("/authenticate", async (req, res) => {
   const { email, password } = req.body;
   const client = await pool.connect();
   try {
