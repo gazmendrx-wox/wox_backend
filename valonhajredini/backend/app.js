@@ -3,6 +3,7 @@ const express = require('express');
 const { Pool } = require('pg');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 const port = 3001;
@@ -55,39 +56,75 @@ app.get('/user/:columnName/:value', async (req, res) => {
 
 });
 
+app.get("/authenticate", async (req, res) => {
+  const { email, password } = req.body;
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    const result = await client.query(
+      `SELECT id, name, email, password FROM public.users WHERE email=$1`,
+      [email]
+    );
+
+    if (result.rows.length === 0) {
+      res.json({ authenticated: false });
+      return;
+    }
+
+    const user = result.rows[0];
+
+    const passwordMatch = bcrypt.compareSync(password, user.password);
+    if (!passwordMatch) {
+      res.json({ authenticated: false });
+      return;
+    }
+
+    res.json({ authenticated: true });
+  } catch (error) {
+    console.error("Error authenticating user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    client.release();
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-app.post('/user/create', async (req, res) => {
-    const { name, email, password } = req.body;
+app.post("/user/create", async (req, res) => {
+  const { name, email, password } = req.body;
 
-    // Start a transaction
-    const client = await pool.connect();
-    try {
-      await client.query('BEGIN');
-  
-      // Use a parameterized query to prevent SQL injection
-      const result = await client.query(
-        'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id,name,email',
-        [name, email, password]
-      );
-  
-      // Commit the transaction
-      await client.query('COMMIT');
-  
-      const newUser = result.rows[0];
-      res.json(newUser);
-    } catch (error) {
-      // Rollback the transaction in case of an error
-      await client.query('ROLLBACK');
-  
-      console.error('Error creating user:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    } finally {
-      // Release the client back to the pool
-      client.release();
-    }
+  const salt = bcrypt.genSaltSync(10)
+  const encryptedPassword = bcrypt.hashSync(password, salt);
+
+  // Start a transaction
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    // Use a parameterized query to prevent SQL injection
+    const result = await client.query(
+      "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id,name,email",
+      [name, email, encryptedPassword]
+    );
+
+    // Commit the transaction
+    await client.query("COMMIT");
+
+    const newUser = result.rows[0];
+    res.json(newUser);
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await client.query("ROLLBACK");
+
+    console.error("Error creating user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    // Release the client back to the pool
+    client.release();
+  }
 });
 
 app.post('/user/update', async (req, res) => {
