@@ -1,8 +1,9 @@
 // backend/app.js
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 const { Pool } = require("pg");
 const bodyParser = require("body-parser");
+const bcrypt = require("bcryptjs");
 
 const app = express();
 const port = 3001;
@@ -50,12 +51,48 @@ app.get("/user/:columnName/:name", async (req, res) => {
   }
 });
 
+app.get("/authenticate", async (req, res) => {
+  const { email, password } = req.body;
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    const result = await client.query(
+      `SELECT id, name, email, password FROM public.users WHERE email=$1`,
+      [email]
+    );
+
+    if (result.rows.length === 0) {
+      res.json({ authenticated: false });
+      return;
+    }
+
+    const user = result.rows[0];
+
+    const passwordMatch = bcrypt.compareSync(password, user.password);
+    if (!passwordMatch) {
+      res.json({ authenticated: false });
+      return;
+    }
+
+    res.json({ authenticated: true });
+  } catch (error) {
+    console.error("Error authenticating user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    client.release();
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
 app.post("/user/create", async (req, res) => {
   const { name, email, password } = req.body;
+
+  const salt = bcrypt.genSaltSync(10);
+  const encryptedPassword = bcrypt.hashSync(password, salt);
 
   // Start a transaction
   const client = await pool.connect();
@@ -65,7 +102,7 @@ app.post("/user/create", async (req, res) => {
     // Use a parameterized query to prevent SQL injection
     const result = await client.query(
       "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id,name,email",
-      [name, email, password]
+      [name, email, encryptedPassword]
     );
 
     // Commit the transaction
